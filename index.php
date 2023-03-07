@@ -150,7 +150,7 @@ if(isset($_POST['login']))
       <div class="container text-center pt-3">
         <p style="font-family:Segoe UI Variable;font-size: 14px">&copy; This system was made by Jhon Ace Casabuena and Computer Studies Department</p>
       </div>
-    </footer>
+    </footer><!--lalalal -->
                 </form>
               </div>
             </div>
