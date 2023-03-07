@@ -71,7 +71,7 @@ if(empty($_SESSION['login_judge']))
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                   <a href="sports_wear.php" class="btn btn-outline-warning">View</a>
+                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning">View</a>
                     <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>

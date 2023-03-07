@@ -58,7 +58,7 @@ if(empty($_SESSION['login_judge']))
 				  		
 						
 				$judge = $_SESSION['login_judge'];
-				$judge_hide = mysqli_query($link,"SELECT *FROM talent_portion");
+				$judge_hide = mysqli_query($link,"SELECT * FROM talent_portion");
 
 				if($judge === "judge1"){
 					//none
