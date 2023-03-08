@@ -420,7 +420,7 @@ if(isset($_POST['submit_score']))
       	</div>
     </main>
 
-    <div class="container text-center pt-3" >
+    <div class="container text-center pt-3" ><!-- aaacesss -->
         <p style="font-family:'Livvic', sans-serif;font-size: 14px;margin-top: -35px">&copy; This system was made by Jhon Ace Casabuena and Computer Studies Department</p>
       </div>
 
