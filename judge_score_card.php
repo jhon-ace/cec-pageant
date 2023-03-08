@@ -54,6 +54,7 @@ if(empty($_SESSION['login_judge']))
 				}
 				.header-text{
 					font-family: 'Livvic', sans-serif;
+					text-align: Left;
 				}
 				td{
 					font-family: Arial;
@@ -88,16 +89,20 @@ if(empty($_SESSION['login_judge']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>TALENT PORTION</b></h2>
+                                    <h2 class="title"><b>TALENT PORTION SCORE CARD</b></h2>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Candidate No.</th>
+                                            <th class="header-text">Candidate Team</th>
                                             <th class="header-text">Contestant Name</th>
-                                            <th class="header-text">Score</th>
+                                            <th class="header-text">Stage Present</th>
+                                            <th class="header-text">Mastery</th>
+                                            <th class="header-text">Uniqueness</th>
+                                            <th class="header-text">Audience Impact</th>
                                             
                                         </thead>
                                         <tbody>
@@ -105,51 +110,34 @@ if(empty($_SESSION['login_judge']))
 						$link = mysqli_connect("localhost","root","","tabulation");
 				  		
 						
-						$judge = $_SESSION['login_judge'];
+						$judge_session = $_SESSION['login_judge'];
 			  			
-						$sql_talent_portion = mysqli_query($link,"SELECT *FROM talent_portion ORDER BY candidate_no ASC,gender ASC");
+						$sql_talent_portion = mysqli_query($link,"SELECT * FROM talent_portion where name_judge = '$judge_session' ORDER BY candidate_no ASC,gender ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_talent_portion) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
+							$candidate_team = $num_rows['team'];
 							$name = $num_rows['name'];
-							$judge1 = $num_rows['judge1'];
-							$judge2 = $num_rows['judge2'];
-							$judge3 = $num_rows['judge3'];
+							$judge = $num_rows['name_judge'];
+							$stage_present = $num_rows['stage_present'];
+							$mastery = $num_rows['mastery'];
+							$uniqueness = $num_rows['uniqueness'];
+							$audience_impact = $num_rows['audience_impact'];
 							
-							if($judge == "judge1")
-							{
+
 								echo "
 								<tr>
 									<td>$candidate_no</td>
+									<td>$candidate_team</td>
 									<td>$name</td>
-									<td>$judge1</td>
+									<td>$stage_present</td>
+									<td>$mastery</td>
+									<td>$uniqueness</td>
+									<td>$audience_impact</td>
 								</tr>
 								
 								";
-							}
-							elseif($judge == "judge2")
-							{
-								echo "
-								<tr>
-									<td>$candidate_no</td>
-									<td>$name</td>
-									<td>$judge2</td>
-								</tr>
-								
-								";
-							}
 							
-							elseif($judge == "judge3")
-							{
-								echo "
-								<tr>
-									<td>$candidate_no</td>
-									<td>$name</td>
-									<td>$judge3</td>
-								</tr>
-								
-								";
-							}
 							
 						}
 	
@@ -742,7 +730,7 @@ if(empty($_SESSION['login_judge']))
     	{scrollFunction()};
 
     	function scrollFunction() {
-    		if(document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+    		if(document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
     			mybutton.style.display = "block";
     		}
     		else

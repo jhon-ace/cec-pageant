@@ -43,7 +43,7 @@ if(empty($_SESSION['login_admin']))
         Tip 2: you can also add an image using data-image tag
     -->
            
-           <div class="sidebar-wrapper">
+           <div class="sidebar-wrapper" style="width:200px;">
                  <ul class="nav">
                     <li  class="active">
                         <a href="result_talent_night.php">
@@ -121,7 +121,7 @@ if(empty($_SESSION['login_admin']))
                 </div>
             </nav>
             
-            <div class="content">
+            <div class="content" style="margin-top: -15px;">
                 
                 <div class="container-fluid">
                     
@@ -135,14 +135,15 @@ if(empty($_SESSION['login_admin']))
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
-                                        <thead style="font-weight: bold;color: black;font-size: 150%">
-                                            <th>Candidate Number</th>
+                                        <thead style="font-weight: bold;color: black;font-size: 100%">
+                                            <th>Number</th>
                                             <th>Gender</th>
-                                            <th>Contestant Name</th>
-                                            <th>Judge 1</th>
-                                            <th>Judge 2</th>
-                                            <th>Judge 3</th>
-                                            <th>Average Score</th>
+                                            <th>Name</th>
+                                            <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Mastery(40pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Uniqueness(30pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Audience Impact(10pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Total</th>
                                             
                                         </thead>
                                         <tbody>
@@ -150,26 +151,35 @@ if(empty($_SESSION['login_admin']))
 					
 						$link = mysqli_connect("localhost","root","","tabulation");
 				  		
-						$sql = mysqli_query($link,"SELECT *FROM talent_portion");
+						$sql = mysqli_query($link,"SELECT name, name_judge, candidate_no,gender, SUM(stage_present) as 'stage_present', SUM(mastery) as 'mastery', SUM(uniqueness) as 'uniqueness', SUM(audience_impact) as 'audience_impact' FROM talent_portion GROUP BY name ORDER BY candidate_no ASC");
 					
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
 						{
-							$candidate_no = $num_rows['candidate_no'];
-							$name = $num_rows['name'];
+                            $name = $num_rows['name'];
                             $gender = $num_rows['gender'];
-							$judge1 = $num_rows['judge1'];
-							$judge2 = $num_rows['judge2'];
-							$judge3 = $num_rows['judge3'];
-							$average = ($judge1 + $judge2 + $judge3)/3;
+                            $judge = $num_rows['name_judge'];
+                            $candidate_no = $num_rows['candidate_no'];
+                            $stage_present = $num_rows['stage_present'];
+                            $mastery = $num_rows['mastery'];
+                            $uniqueness = $num_rows['uniqueness'];
+                            $audience_impact = $num_rows['audience_impact'];
+
+                            $stage_present_average = ROUND($stage_present/3,2);
+                            $mastery_average = ROUND($mastery/3,2);
+                            $uniqueness_average = ROUND($uniqueness/3,2);
+                            $audience_impact_average = ROUND($audience_impact/3,2);
+                            $talent_portion_total = ROUND($stage_present_average + $mastery_average + $uniqueness_average + $audience_impact_average,2);
 							echo "
 							<tr>
-								<td>$candidate_no</td>
+                                <td>$candidate_no</td>
                                 <td>$gender</td>
 								<td>$name</td>
-								<td>$judge1</td>
-								<td>$judge2</td>
-								<td>$judge3</td>
-								<td>$average</td>
+                                <td>$stage_present_average</td>
+                                <td>$mastery_average</td>
+                                <td>$uniqueness_average</td>
+                                <td>$audience_impact_average</td>
+                                <td>$talent_portion_total</td>
+                                
 							</tr>
 							
 							";
