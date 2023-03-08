@@ -2,7 +2,7 @@
 include('config.php');
 
 
-
+///aces
 if(isset($_POST['logout']))
 {
 	session_destroy();
