@@ -84,6 +84,7 @@ if(isset($_POST['login']))
             border-radius: 0;
             text-decoration: none;
             background: transparent;
+            font-family: 'Livvic', sans-serif;
             
         }
 
@@ -97,12 +98,14 @@ if(isset($_POST['login']))
             border-radius: 0;
             text-decoration: none;
             background: transparent;
+            font-family: 'Livvic', sans-serif;
             
             
         }
         label {
             position:relative;
             display:inline-block;
+            font-family: 'Livvic', sans-serif;
         }
         input.checkBox{
           width:15px;
@@ -117,6 +120,9 @@ if(isset($_POST['login']))
         position: relative;
         z-index: 2;
       }
+      .figure-caption{
+        margin-top: -80px;
+      }
 
 
     </style>
@@ -130,8 +136,8 @@ if(isset($_POST['login']))
         <div class="row">
           <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="margin-top: 110px">
             <div class="card bg-light card-signin my-4" >
-              <div class="card-body" style="margin-top: -10px">
-                <img src="img/final_logo.png" width="200px" height="100%" class="mx-auto d-block mt-4" alt="Ce-C Palaro 2019"><br>
+              <div class="card-body" style="margin-top: -50px">
+                <img src="img/final_logo.png" width="300px" height="1%" class="mx-auto d-block" alt="Ce-C Palaro 2019">
                 <figcaption class="figure-caption text-center mb-4" style="color:black;font-size:30px;font-family: Pristina Regular"><b>Mr. and Ms. Ce-C Palaro 2023</b></figcaption>
                 <form class="form-signin" method="post">
                   <div class="form-label-group">
@@ -148,7 +154,7 @@ if(isset($_POST['login']))
                   <hr class="my-1">
                       <footer class="text-muted">
       <div class="container text-center pt-3">
-        <p style="font-family:Segoe UI Variable;font-size: 14px">&copy; This system was made by Jhon Ace Casabuena and Computer Studies Department</p>
+        <p style="font-family:'Livvic', sans-serif;font-size: 14px">&copy; This system was developed by Jhon Ace Casabuena and Computer Studies Department</p>
       </div>
     </footer><!--lalalal -->
                 </form>

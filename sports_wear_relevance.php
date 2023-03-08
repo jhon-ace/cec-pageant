@@ -285,7 +285,7 @@ if(isset($_POST['submit_score']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant ORDER BY id_contestant ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -336,7 +336,7 @@ if(isset($_POST['submit_score']))
 													<div class = 'col-md-6 col-lg-4 my-7'>
 														<form method = 'post'>
 															<div class='input-group mb-3'>
-															  <input type='number' min='0' max = '30' class='form-control' placeholder='Score' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
+															  <input type='number' min='1' max = '30' class='form-control' placeholder='Score' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
 															  <input type = 'hidden' name ='judge' value='$judge'>
 															  <input type = 'hidden' name ='name_contestant' value='$full_name'>
 																  <div class='input-group-append'>
@@ -382,7 +382,7 @@ if(isset($_POST['submit_score']))
 														<td style='display:none'>$sports_wear</td>
 														<td style='display:none'>$judge</td>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$id_contestant</td>
+														<td style='display:none'>$candidate_no</td>
 														<td style='display:none'>$team</td>
 														<td style='display:none'>$sports_wear_editt</td>
 														<td><center>
@@ -420,11 +420,9 @@ if(isset($_POST['submit_score']))
       	</div>
     </main>
 
-    <footer class="text-muted">
-      <div class="container py-4 text-center">
-            <p>&copy; This system was made by Jhon Ace Casabuena and CAPG Students</p>
+    <div class="container text-center pt-3" >
+        <p style="font-family:'Livvic', sans-serif;font-size: 14px;margin-top: -35px">&copy; This system was made by Jhon Ace Casabuena and Computer Studies Department</p>
       </div>
-    </footer>
 
        <!-- Bootstrap core JavaScript
     ================================================== -->

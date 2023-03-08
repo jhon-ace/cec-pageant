@@ -67,11 +67,11 @@ if(empty($_SESSION['login_judge']))
 
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Forte">Sports<br>Wear</text></h2>
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Talent<br>Portion</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning">View</a>
+                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
                     <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
@@ -81,11 +81,39 @@ if(empty($_SESSION['login_judge']))
 
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Forte">Preliminary<br>Interview</text></h2>
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Production<br>Number</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="preliminary_interview.php" class="btn btn-outline-warning">View</a>
+                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
+                    <!--<a href="#" class="btn btn-danger">View</a>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="card mb-4 shadow-sm p-5">
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Sports<br>Wear</b></text></h2>
+                <div class="card-body">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="btn-group">
+                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
+                    <!--<a href="#" class="btn btn-danger">View</a>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="card mb-4 shadow-sm p-5">
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Preliminary<br>Interviews</b></text></h2>
+                <div class="card-body">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="btn-group">
+                    <a href="preliminary_interview.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
                     <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
@@ -94,11 +122,11 @@ if(empty($_SESSION['login_judge']))
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Forte">Long Gown and Formal Wear</text></h2>
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Formal Wear and Evening Gown</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="long_gown_and_formal_wear.php" class="btn btn-outline-warning">View</a>
+                    <a href="long_gown_and_formal_wear.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
                     <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
@@ -108,11 +136,11 @@ if(empty($_SESSION['login_judge']))
 <!-- advocacy ani unta -->
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Forte">Final Round</text><br><br></h2>
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Final<br> Interviews</b></text><br></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="final_round.php" class="btn btn-outline-warning">View</a>
+                    <a href="final_round.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
                     <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
@@ -120,7 +148,7 @@ if(empty($_SESSION['login_judge']))
               </div>
             </div>
 			    <?php  }    ?>
-                      <?php
+                      <!--<?php
                   
                 $judge = $_SESSION['login_judge'];
 
@@ -129,7 +157,7 @@ if(empty($_SESSION['login_judge']))
 
                      echo " <div class='col-md-6 col-lg-4'>
                               <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Forte'>Talent<br>Portion</text></h2>
+                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Pristina Regular;font-size: 40px;''><b>Talent Portion</b></text></h2>
                                 <div class='card-body'>
                                   <div class='d-flex justify-content-center align-items-center'>
                                     <div class='btn-group'>
@@ -226,29 +254,29 @@ if(empty($_SESSION['login_judge']))
                             </div>";
                   }
 
-            ?>
+            ?>-->
 
-                          <div class="col-md-6 col-lg-4">
+            <!--<div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Forte">Advocacy</text><br><br></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
-                    <div class="btn-group">
+                    <div class="btn-group">-->
                     <!--<a href="advocacy.php" class="btn btn-outline-warning">View</a>-->
-                    <a href="#" class="btn btn-danger">Done</a>
+                    <!--<a href="#" class="btn btn-danger" style="font-family: OCR A">View</a>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
             
 			  <div class="col-md-6 col-lg-4 " >
-              <div class="card mb-4 shadow-sm p-5 " style="background-color:#6C757D">
-                <h2 class="text-center mt-5 mb-0" style="color:white;font-family:Forte">Your Score Card</h2>
+              <div class="card mb-4 shadow-sm p-5" style="background-color:">
+                <h2 class="text-center mt-5 mb-0 text-dark"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Your Score Card</b></text></h2>
                 <div class="card-body ">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="judge_score_card.php" class="btn btn-light">View</a>
+                    <a href="judge_score_card.php" class="btn btn-success" style="color:white;font-family: OCR A">View</a>
                     </div>
                   </div>
                 </div>
@@ -260,11 +288,9 @@ if(empty($_SESSION['login_judge']))
 
     </main>
 
-    <footer class="text-muted">
-      <div class="container py-4 text-center">
-        <p>&copy; This system was made by Jhon Ace Casabuena and CAPG Students</p>
+    <div class="container text-center pt-3">
+        <p style="font-family:'Livvic', sans-serif;font-size: 14px">&copy; This system was made by Jhon Ace Casabuena and Computer Studies Department</p>
       </div>
-    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

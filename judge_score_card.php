@@ -25,9 +25,40 @@ if(empty($_SESSION['login_judge']))
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="app.css" rel="stylesheet">
+    <style type="text/css">
+    	    html{
+    		   scroll-behavior: smooth;
+    		}
+    		#myBtn{
+			    display: none;
+			    position: fixed;
+			    bottom: 20px;
+			    right: 30px;
+			    z-index: 18px;
+			    font-size: 18px;
+			    border: none;
+			    outline: none;
+			    background-color: red;
+			    color: white;
+			    cursor: pointer;
+			    padding: 15px;
+			    border-radius: 4px;
+
+				}
+				#myBtn:hover{
+				    background-color: green;
+				}
+				.header-text{
+					font-family: 'Livvic', sans-serif;
+				}
+				td{
+					font-family: Arial;
+				}
+    </style>
   </head>
 
   <body>
@@ -53,32 +84,6 @@ if(empty($_SESSION['login_judge']))
     <main role="main">
       <div class="album py-5 bg-light">
         <div class="container">
-        	<?php
-        		$link = mysqli_connect("localhost","root","","tabulation");
-				  		
-						
-				$judge = $_SESSION['login_judge'];
-				$judge_hide = mysqli_query($link,"SELECT * FROM talent_portion");
-
-				if($judge === "judge1"){
-					//none
-				}
-
-				else if($judge === "judge2"){
-				}
-
-				else if($judge === "judge3"){
-				}
-
-				else if($judge === "judge4"){
-				}
-
-				else if($judge === "judge5"){
-				}
-					else{
-
-				
-        	?>
           <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -90,9 +95,9 @@ if(empty($_SESSION['login_judge']))
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th>Candidate Number</th>
-                                            <th>Contestant Name</th>
-                                            <th>Score</th>
+                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Score</th>
                                             
                                         </thead>
                                         <tbody>
@@ -102,7 +107,7 @@ if(empty($_SESSION['login_judge']))
 						
 						$judge = $_SESSION['login_judge'];
 			  			
-						$sql_talent_portion = mysqli_query($link,"SELECT *FROM talent_portion");
+						$sql_talent_portion = mysqli_query($link,"SELECT *FROM talent_portion ORDER BY candidate_no ASC,gender ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_talent_portion) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
@@ -163,17 +168,16 @@ if(empty($_SESSION['login_judge']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>ADVOCACY</b></h2>
+                                    <h2 class="title"><b>PRODUCTION NUMBER</b></h2>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th>Candidate Number</th>
-                                            <th>Contestant Name</th>
-                                            <th>Score</th>
-                                            
+                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Score</th>                                           
                                         </thead>
                                         <tbody>
 			<?php
@@ -182,7 +186,7 @@ if(empty($_SESSION['login_judge']))
 						
 						$judge = $_SESSION['login_judge'];
 			  			
-						$sql_advocacy = mysqli_query($link,"SELECT *FROM advocacy");
+						$sql_advocacy = mysqli_query($link,"SELECT *FROM advocacy ORDER BY candidate_no ASC,gender ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_advocacy) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
@@ -268,7 +272,6 @@ if(empty($_SESSION['login_judge']))
 
 
 
-                <?php } ?>
 
 
 
@@ -277,16 +280,16 @@ if(empty($_SESSION['login_judge']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>SPORTS WEAR</b></h2>
+                                    <h2 class="title"><text style="font-family: Arial Rounded MT"><b>SPORTS WEAR ATTIRE</b></text></h2>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th>Candidate Number</th>
-                                            <th>Contestant Name</th>
-                                            <th>Score</th>
+                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Score</th>
                                             
                                         </thead>
                                         <tbody>
@@ -296,7 +299,7 @@ if(empty($_SESSION['login_judge']))
 						
 						$judge = $_SESSION['login_judge'];
 			  			
-						$sql_sports_wear = mysqli_query($link,"SELECT *FROM sports_wear");
+						$sql_sports_wear = mysqli_query($link,"SELECT *FROM sports_wear ORDER BY candidate_no ASC,gender ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_sports_wear) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
@@ -381,16 +384,16 @@ if(empty($_SESSION['login_judge']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>PRELIMINARY INTERVIEW</b></h2>
+                                    <h2 class="title"><b>PRELIMINARY INTERVIEWS</b></h2>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th>Candidate Number</th>
-                                            <th>Contestant Name</th>
-                                            <th>Score</th>
+                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Score</th>
                                             
                                         </thead>
                                         <tbody>
@@ -400,7 +403,7 @@ if(empty($_SESSION['login_judge']))
 						
 						$judge = $_SESSION['login_judge'];
 			  			
-						$sql_preliminary_interview = mysqli_query($link,"SELECT *FROM preliminary_interview");
+						$sql_preliminary_interview = mysqli_query($link,"SELECT *FROM preliminary_interview ORDER BY candidate_no ASC,gender ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_preliminary_interview) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
@@ -487,16 +490,16 @@ if(empty($_SESSION['login_judge']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>LONG GOWN AND FORMAL WEAR</b></h2>
+                                    <h2 class="title"><b>FORMAL WEAR AND EVENING GOWN</b></h2>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th>Candidate Number</th>
-                                            <th>Contestant Name</th>
-                                            <th>Score</th>
+                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Score</th>
                                             
                                         </thead>
                                         <tbody>
@@ -506,7 +509,7 @@ if(empty($_SESSION['login_judge']))
 						
 						$judge = $_SESSION['login_judge'];
 			  			
-						$sql_long_gown = mysqli_query($link,"SELECT *FROM long_gown_formal_wear");
+						$sql_long_gown = mysqli_query($link,"SELECT *FROM long_gown_formal_wear ORDER BY candidate_no ASC,gender ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_long_gown) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
@@ -593,16 +596,16 @@ if(empty($_SESSION['login_judge']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>FINAL ROUND</b></h2>
+                                    <h2 class="title"><b>FINAL INTERVIEWS</b></h2>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
                                     <table class="table" id="dataTable">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th>Candidate Number</th>
-                                            <th>Contestant Name</th>
-                                            <th>Score</th>
+                                            <th class="header-text">Candidate Number</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Score</th>
                                             
                                         </thead>
                                         <tbody>
@@ -700,12 +703,11 @@ if(empty($_SESSION['login_judge']))
 			
         </div>
       </div>
-
+<button onclick ="topFunction()" id="myBtn"><b><i class="fa fa-arrow-up fa-lg"></i></b></button>
     </main>
-
     <footer class="text-muted">
       <div class="container py-4 text-center">
-        <p>&copy; This system was made by Jhon Ace Casabuena and CAPG Students</p>
+        <p>&copy; The system was developed by Jhon Ace Casabuena and Computer Studies Department</p>
       </div>
     </footer>
 
@@ -733,6 +735,28 @@ if(empty($_SESSION['login_judge']))
         </div>
       </div>
     </div>
+
+       <script type="text/javascript">
+    	let mybutton = document.getElementById("myBtn");
+    	window.onscroll = function() 
+    	{scrollFunction()};
+
+    	function scrollFunction() {
+    		if(document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+    			mybutton.style.display = "block";
+    		}
+    		else
+    		{
+    			mybutton.style.display = "none";
+    		}
+    	}
+
+    	function topFunction() {
+    		document.body.scrollTop = 0;
+    		document.documentElement.scrollTop = 0;
+    	}
+    </script>
+
     <script src="js/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
