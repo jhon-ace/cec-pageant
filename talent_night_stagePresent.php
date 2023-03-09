@@ -72,7 +72,7 @@ if(isset($_POST['submit_score']))
 				mysqli_query($link,$update_grand_total);
 
 			}
-
+//x
 				$sql_talent_portion_stagePresent_updateByJudgeName = "UPDATE talent_portion SET stage_present = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
 				mysqli_query($link,$sql_talent_portion_stagePresent_updateByJudgeName);
 			
