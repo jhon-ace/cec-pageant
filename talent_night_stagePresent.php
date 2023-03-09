@@ -29,7 +29,16 @@ if(isset($_POST['submit_score']))
 		$update = "UPDATE score_card SET talent_portion_stagePresent = '$score',talent_portion_stagePresent_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
-		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, SUM(talent_portion_stagePresent)/3 as 'talent_portion_stagePresent', SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact' FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
+		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, 
+			SUM(talent_portion_stagePresent)/3 as 'talent_portion_stagePresent', 
+			SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', 
+			SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', 
+			SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact', 
+			SUM(production_PoiseandBearing)/3 as 'production_PoiseandBearing', 
+			SUM(production_mastery)/3 as 'production_mastery', 
+			SUM(production_self_introduction)/3 as 'production_self_introduction', 
+			SUM(production_audience_impact)/3 as 'production_audience_impact' 
+			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
 			{
@@ -46,22 +55,25 @@ if(isset($_POST['submit_score']))
 
 				$talent_portion_total = ROUND($talent_portion_stagePresent_average + $talent_portion_mastery_average + $talent_portion_uniqueness_average + $talent_portion_audience_impact_average,2);
 
-				$talent_portion_stagePresent = $num_rows2['talent_portion_stagePresent'];
-				$talent_portion_mastery = $num_rows2['talent_portion_mastery'];
-				$talent_portion_uniqueness = $num_rows2['talent_portion_uniqueness'];
-				$talent_portion_audience_impact = $num_rows2['talent_portion_audience_impact'];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-				$talent_portion_stagePresent_average = ROUND($talent_portion_stagePresent,2);
-				$talent_portion_mastery_average = ROUND($talent_portion_mastery,2);
-				$talent_portion_uniqueness_average = ROUND($talent_portion_uniqueness,2);
-				$talent_portion_audience_impact_average = ROUND($talent_portion_audience_impact,2);
+				$production_PoiseandBearing = $num_rows2['production_PoiseandBearing'];
+				$production_mastery = $num_rows2['production_mastery'];
+				$production_self_introduction = $num_rows2['production_self_introduction'];
+				$production_audience_impact = $num_rows2['production_audience_impact'];
 
-				$talent_portion_total = ROUND($talent_portion_stagePresent_average + $talent_portion_mastery_average + $talent_portion_uniqueness_average + $talent_portion_audience_impact_average,2);
+				$production_PoiseandBearing_average = ROUND($production_PoiseandBearing,2);
+				$production_mastery_average = ROUND($production_mastery,2);
+				$production_self_introduction_average = ROUND($production_self_introduction,2);
+				$production_audience_impact_average = ROUND($production_audience_impact,2);
 
-				$production_total = $num_rows2['production_total'];
+				$production_total = ROUND($production_PoiseandBearing_average + $production_mastery_average + $production_self_introduction_average + $production_audience_impact_average,2);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 				$sports_wear_total= $num_rows2['sports_wear_total'];
 				$preliminary_interview_total = $num_rows2['preliminary_interview_total'];
-				$formal_wear_total = $num_rows['formal_wear_total'];
+				$formal_wear_total = $num_rows2['formal_wear_total'];
 				$final_interview_total = $num_rows2['final_interview_total'];
 
 
