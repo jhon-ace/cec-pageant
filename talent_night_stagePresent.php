@@ -34,10 +34,14 @@ if(isset($_POST['submit_score']))
 			SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', 
 			SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', 
 			SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact', 
-			SUM(production_PoiseandBearing)/3 as 'production_PoiseandBearing', 
-			SUM(production_mastery)/3 as 'production_mastery', 
-			SUM(production_self_introduction)/3 as 'production_self_introduction', 
-			SUM(production_audience_impact)/3 as 'production_audience_impact' 
+			SUM(production_PoiseandBearing)/7 as 'production_PoiseandBearing', 
+			SUM(production_mastery)/7 as 'production_mastery', 
+			SUM(production_self_introduction)/7 as 'production_self_introduction', 
+			SUM(production_audience_impact)/7 as 'production_audience_impact',
+			SUM(sports_wear_figure)/7 as 'sports_wear_figure', 
+			SUM(sports_wear_sports_identity)/7 as 'sports_wear_sports_identity', 
+			SUM(sports_wear_PoiseandBearing)/7 as 'sports_wear_PoiseandBearing', 
+			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact' 
 			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
@@ -71,7 +75,25 @@ if(isset($_POST['submit_score']))
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-				$sports_wear_total= $num_rows2['sports_wear_total'];
+				$sports_wear_figure = $num_rows2['sports_wear_figure'];
+				$sports_wear_sports_identity = $num_rows2['sports_wear_sports_identity'];
+				$sports_wear_PoiseandBearing = $num_rows2['sports_wear_PoiseandBearing'];
+				$sports_wear_overall_impact = $num_rows2['sports_wear_overall_impact'];
+
+				$sports_wear_figure_average = ROUND($sports_wear_figure,2);
+				$sports_wear_sports_identity_average = ROUND($sports_wear_sports_identity,2);
+				$sports_wear_PoiseandBearing_average = ROUND($sports_wear_PoiseandBearing,2);
+				$sports_wear_overall_impact_average = ROUND($sports_wear_overall_impact,2);
+
+				$sports_wear_total = ROUND($sports_wear_figure_average + $sports_wear_sports_identity_average + $sports_wear_PoiseandBearing_average + $sports_wear_overall_impact_average,2);
+
+
+
+
+
+
+
+
 				$preliminary_interview_total = $num_rows2['preliminary_interview_total'];
 				$formal_wear_total = $num_rows2['formal_wear_total'];
 				$final_interview_total = $num_rows2['final_interview_total'];
@@ -356,7 +378,7 @@ if(isset($_POST['submit_score']))
 													<div class = 'col-md-6 col-lg-4 my-7'>
 														<form method = 'post'>
 															<div class='input-group mb-3'>
-															  <input type='number' min='1' max = '30' class='form-control' placeholder='Score' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
+															  <input type='number' min='1' max = '20' class='form-control' placeholder='Score' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='2' pattern='[0-9]{1,}'>
 															  <input type = 'hidden' name ='judge' value='$judge'>
 															  <input type = 'hidden' name ='name_contestant' value='$full_name'>
 																  <div class='input-group-append'>
