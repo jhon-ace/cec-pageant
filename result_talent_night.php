@@ -32,6 +32,13 @@ if(empty($_SESSION['login_admin']))
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <style type="text/css">
+        tr:hover{
+            background-color: yellow;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -43,7 +50,7 @@ if(empty($_SESSION['login_admin']))
         Tip 2: you can also add an image using data-image tag
     -->
            
-           <div class="sidebar-wrapper" style="width:200px;">
+           <div class="sidebar-wrapper">
                  <ul class="nav">
                     <li  class="active">
                         <a href="result_talent_night.php">
@@ -129,21 +136,22 @@ if(empty($_SESSION['login_admin']))
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>Talent Portion</b></h2>
+                                    <h1 class="title"><b>Talent Portion</b><small style="color:white;font-family:Maiandra GD"> (Female Category)</small></h1>
                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     
-                                    <table class="table" id="dataTable">
+                                    <table class="table" id="dataTable1">
                                         <thead style="font-weight: bold;color: black;font-size: 100%">
                                             <th>Number</th>
                                             <th>Gender</th>
-                                            <th>Name</th>
+                                            <th>Candidate Name</th>
                                             <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
                                             <th>Mastery(40pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
                                             <th>Uniqueness(30pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
                                             <th>Audience Impact(10pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
-                                            <th>Total</th>
+                                            <th>Total(100pts)</th>
+                                            <th>Rank</th>
                                             
                                         </thead>
                                         <tbody>
@@ -151,8 +159,20 @@ if(empty($_SESSION['login_admin']))
 					
 						$link = mysqli_connect("localhost","root","","tabulation");
 				  		
-						$sql = mysqli_query($link,"SELECT name, name_judge, candidate_no,gender, SUM(stage_present) as 'stage_present', SUM(mastery) as 'mastery', SUM(uniqueness) as 'uniqueness', SUM(audience_impact) as 'audience_impact' FROM talent_portion GROUP BY name ORDER BY candidate_no ASC");
-					
+						$sql = mysqli_query($link,"SELECT tp.name, tp.name_judge, tp.candidate_no, tp.gender, 
+                       SUM(tp.stage_present)/3 AS 'stage_present', 
+                       SUM(tp.mastery)/3 AS 'mastery', 
+                       SUM(tp.uniqueness)/3 AS 'uniqueness', 
+                       SUM(tp.audience_impact)/3 AS 'audience_impact', 
+                       r.no AS 'no', 
+                       DENSE_RANK() OVER (ORDER BY SUM(tp.stage_present + tp.mastery + tp.uniqueness + tp.audience_impact) DESC) AS 'total_rank'
+                        FROM talent_portion tp 
+                        JOIN (SELECT no FROM rank GROUP BY no ORDER BY no ASC) g ON tp.candidate_no = g.no 
+                        JOIN rank r ON tp.candidate_no = r.no 
+                        WHERE tp.gender = 'Female' 
+                        GROUP BY tp.name, r.no 
+                        ORDER BY tp.candidate_no ASC, r.no ASC
+                            ");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
 						{
                             $name = $num_rows['name'];
@@ -163,15 +183,29 @@ if(empty($_SESSION['login_admin']))
                             $mastery = $num_rows['mastery'];
                             $uniqueness = $num_rows['uniqueness'];
                             $audience_impact = $num_rows['audience_impact'];
+                            $rank = $num_rows['total_rank'];
 
-                            $stage_present_average = ROUND($stage_present/3,2);
-                            $mastery_average = ROUND($mastery/3,2);
-                            $uniqueness_average = ROUND($uniqueness/3,2);
-                            $audience_impact_average = ROUND($audience_impact/3,2);
+                            $stage_present_average = ROUND($stage_present,2);
+                            $mastery_average = ROUND($mastery,2);
+                            $uniqueness_average = ROUND($uniqueness,2);
+                            $audience_impact_average = ROUND($audience_impact,2);
                             $talent_portion_total = ROUND($stage_present_average + $mastery_average + $uniqueness_average + $audience_impact_average,2);
+
+                                
 							echo "
-							<tr>
-                                <td>$candidate_no</td>
+							<tr";
+                            if ($rank == 1) {
+                                        echo ' style="background-color: yellow"';
+                            }
+                            /*elseif($rank == 2){
+                                echo ' style="background-color: #DBDB00"';
+                            }
+                            elseif($rank == 3){
+                                echo ' style="background-color: #FFFF63"';
+                            }*/
+
+                            echo ">";
+                               echo" <td>$candidate_no</td>
                                 <td>$gender</td>
 								<td>$name</td>
                                 <td>$stage_present_average</td>
@@ -179,29 +213,135 @@ if(empty($_SESSION['login_admin']))
                                 <td>$uniqueness_average</td>
                                 <td>$audience_impact_average</td>
                                 <td>$talent_portion_total</td>
+
+                                <td>$rank</td>
                                 
 							</tr>
 							
 							";
+
+                            $rank++;
 							
 						}
-											
-						
-						
-							
-						
-							
-							
-						
+
+
+
 				?>
                                             
                                         </tbody>
                                     </table>
+                                    <br>
                                 </div>
                             </div>
                         </div>
                             
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="green">
+                                    <h1 class="title"><b>Talent Portion</b><small style="color:white;font-family:Maiandra GD"> (Male Category)</small></h1>
+                                   
+                                </div>
+                                <div class="card-content table-responsive">
+                                    
+                                    <table class="table" id="dataTable2">
+                                        <thead style="font-weight: bold;color: black;font-size: 100%">
+                                            <th>Number</th>
+                                            <th>Gender</th>
+                                            <th>Candidate Name</th>
+                                            <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Mastery(40pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Uniqueness(30pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Audience Impact(10pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Total(100pts)</th>
+                                            <th>Rank</th>
+                                            
+                                        </thead>
+                                        <tbody>
+                <?php
+                    
+                        $link = mysqli_connect("localhost","root","","tabulation");
+                        
+                        $sql = mysqli_query($link,"SELECT tp.name, tp.name_judge, tp.candidate_no, tp.gender, 
+                           SUM(tp.stage_present)/3 AS 'stage_present', 
+                           SUM(tp.mastery)/3 AS 'mastery', 
+                           SUM(tp.uniqueness)/3 AS 'uniqueness', 
+                           SUM(tp.audience_impact)/3 AS 'audience_impact', 
+                           r.no AS 'no', 
+                           DENSE_RANK() OVER (ORDER BY SUM(tp.stage_present + tp.mastery + tp.uniqueness + tp.audience_impact) DESC) AS 'total_rank'
+                            FROM talent_portion tp 
+                            JOIN (SELECT no FROM rank GROUP BY no ORDER BY no ASC) g ON tp.candidate_no = g.no 
+                            JOIN rank r ON tp.candidate_no = r.no 
+                            WHERE tp.gender = 'Male' 
+                            GROUP BY tp.name, r.no 
+                            ORDER BY tp.name ASC, r.no ASC;
+                            ");
+                        for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
+                        {
+                            $name = $num_rows['name'];
+                            $gender = $num_rows['gender'];
+                            $judge = $num_rows['name_judge'];
+                            $candidate_no = $num_rows['candidate_no'];
+                            $stage_present = $num_rows['stage_present'];
+                            $mastery = $num_rows['mastery'];
+                            $uniqueness = $num_rows['uniqueness'];
+                            $audience_impact = $num_rows['audience_impact'];
+                            $rank = $num_rows['total_rank'];
+
+                            $stage_present_average = ROUND($stage_present,2);
+                            $mastery_average = ROUND($mastery,2);
+                            $uniqueness_average = ROUND($uniqueness,2);
+                            $audience_impact_average = ROUND($audience_impact,2);
+                            $talent_portion_total = ROUND($stage_present_average + $mastery_average + $uniqueness_average + $audience_impact_average,2);
+
+                                
+                            echo "
+                            <tr";
+                            if ($rank == 1) {
+                                        echo ' style="background-color: yellow"';
+                            }
+                            /*elseif($rank == 2){
+                                echo ' style="background-color: #DBDB00"';
+                            }
+                            elseif($rank == 3){
+                                echo ' style="background-color: #FFFF63"';
+                            }*/
+
+                            echo ">";
+                               echo" <td>$candidate_no</td>
+                                <td>$gender</td>
+                                <td>$name</td>
+                                <td>$stage_present_average</td>
+                                <td>$mastery_average</td>
+                                <td>$uniqueness_average</td>
+                                <td>$audience_impact_average</td>
+                                <td>$talent_portion_total</td>
+
+                                <td>$rank</td>
+                                
+                            </tr>
+                            
+                            ";
+
+                            $rank++;
+                            
+                        }
+
+
+
+                ?>
+                                            
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                            
+                    </div>
+ 
                 </div>
             </div>
            <footer class="footer">
@@ -222,7 +362,7 @@ if(empty($_SESSION['login_admin']))
     
     
     
- 
+
 </body>
 	<form method="post">
 	<div class="modal fade" id="exampleModal20000" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -245,6 +385,18 @@ if(empty($_SESSION['login_admin']))
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    $('#dataTable1').DataTable();
+});
+    </script>
+        <script type="text/javascript">
+        $(document).ready(function () {
+    $('#dataTable2').DataTable();
+});
+    </script>
+
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -274,7 +426,7 @@ if(empty($_SESSION['login_admin']))
    
   
     
-    <script src="js/sb-admin.min.js"></script>
+ 
     
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>

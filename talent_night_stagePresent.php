@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 
-
+//ddddd
 ///aces
 if(isset($_POST['logout']))
 {
@@ -15,6 +15,8 @@ if(empty($_SESSION['login_judge']))
 }
 if(isset($_POST['submit_score']))
 {
+
+	$judge_session = $_SESSION['login_judge'];
 	$score = $_POST['score'];
 	$judge = $_POST['judge'];
 	$name_contestant = $_POST['name_contestant'];
@@ -24,51 +26,58 @@ if(isset($_POST['submit_score']))
 	if($score <101)
 	{
 	
-		$update = "UPDATE score_card SET sports_wear = '$score',sports_wear_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
+		$update = "UPDATE score_card SET talent_portion_stagePresent = '$score',talent_portion_stagePresent_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
-		$sql_grand_total = mysqli_query($link,"SELECT *FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
+		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, SUM(talent_portion_stagePresent)/3 as 'talent_portion_stagePresent', SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact' FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
 			{
-				$talent_portion = $num_rows2['talent_portion'];
-				$sports_wear = $num_rows2['sports_wear'];
-				$preliminary_interview= $num_rows2['preliminary_interview'];
-				$long_gown_formal_wear = $num_rows2['long_gown_formal_wear'];
-				$advocacy = $num_rows2['advocacy'];
+
+				$talent_portion_stagePresent = $num_rows2['talent_portion_stagePresent'];
+				$talent_portion_mastery = $num_rows2['talent_portion_mastery'];
+				$talent_portion_uniqueness = $num_rows2['talent_portion_uniqueness'];
+				$talent_portion_audience_impact = $num_rows2['talent_portion_audience_impact'];
+
+				$talent_portion_stagePresent_average = ROUND($talent_portion_stagePresent,2);
+				$talent_portion_mastery_average = ROUND($talent_portion_mastery,2);
+				$talent_portion_uniqueness_average = ROUND($talent_portion_uniqueness,2);
+				$talent_portion_audience_impact_average = ROUND($talent_portion_audience_impact,2);
+
+				$talent_portion_total = ROUND($talent_portion_stagePresent_average + $talent_portion_mastery_average + $talent_portion_uniqueness_average + $talent_portion_audience_impact_average,2);
+
+				$talent_portion_stagePresent = $num_rows2['talent_portion_stagePresent'];
+				$talent_portion_mastery = $num_rows2['talent_portion_mastery'];
+				$talent_portion_uniqueness = $num_rows2['talent_portion_uniqueness'];
+				$talent_portion_audience_impact = $num_rows2['talent_portion_audience_impact'];
+
+				$talent_portion_stagePresent_average = ROUND($talent_portion_stagePresent,2);
+				$talent_portion_mastery_average = ROUND($talent_portion_mastery,2);
+				$talent_portion_uniqueness_average = ROUND($talent_portion_uniqueness,2);
+				$talent_portion_audience_impact_average = ROUND($talent_portion_audience_impact,2);
+
+				$talent_portion_total = ROUND($talent_portion_stagePresent_average + $talent_portion_mastery_average + $talent_portion_uniqueness_average + $talent_portion_audience_impact_average,2);
+
+				$production_total = $num_rows2['production_total'];
+				$sports_wear_total= $num_rows2['sports_wear_total'];
+				$preliminary_interview_total = $num_rows2['preliminary_interview_total'];
+				$formal_wear_total = $num_rows['formal_wear_total'];
+				$final_interview_total = $num_rows2['final_interview_total'];
+
+
 				
-				$grand_total = ($talent_portion * .20) + ($sports_wear* .15) + ($preliminary_interview * .30) + ($long_gown_formal_wear * .25) + $advocacy;
+				$grand_total = ($talent_portion_total * .25) + ($production_total * .10) + ($sports_wear_total* .10) + ($preliminary_interview_total * .15) + ($final_interview_total * .25) + ($formal_wear_total * .15);
 				
 				$update_grand_total = "UPDATE score_card SET grand_total = '$grand_total' WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'";
 				mysqli_query($link,$update_grand_total);
+
 			}
 
-				if($judge == 'judge1')
-				{
-					$sql_sports_wear_judge1 = "UPDATE sports_wear SET judge1 = '$score'WHERE name = '$name_contestant'";
-					mysqli_query($link,$sql_sports_wear_judge1);
-				}
-				elseif($judge == 'judge2')
-				{
-					$sql_sports_wear_judge2 = "UPDATE sports_wear SET judge2 = '$score' WHERE name = '$name_contestant'";
-					mysqli_query($link,$sql_sports_wear_judge2);
-				}
-				elseif($judge == 'judge3')
-				{
-					$sql_sports_wear_judge3 = "UPDATE sports_wear SET judge3 = '$score' WHERE name = '$name_contestant'";
-					mysqli_query($link,$sql_sports_wear_judge3);
-				}
-				elseif($judge == 'judge4')
-				{
-					$sql_sports_wear_judge4 = "UPDATE sports_wear SET judge4 = '$score' WHERE name = '$name_contestant'";
-					mysqli_query($link,$sql_sports_wear_judge4);
-				}
-				elseif($judge == 'judge5')
-				{
-					$sql_sports_wear_judge5 = "UPDATE sports_wear SET judge5 = '$score' WHERE name = '$name_contestant'";
-					mysqli_query($link,$sql_sports_wear_judge5);
-				}
-	}else
+				$sql_talent_portion_stagePresent_updateByJudgeName = "UPDATE talent_portion SET stage_present = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
+				mysqli_query($link,$sql_talent_portion_stagePresent_updateByJudgeName);
+			
+	}
+	else
 	{
 		$message = "Input is greater than 100!";
       echo "<script type='text/javascript'>alert('$message'); window.location.assign('sports_wear.php')</script>";
@@ -231,9 +240,9 @@ if(isset($_POST['submit_score']))
 
 														if($name_judge == $judge)
 														{
-															$sports_wear_vote = $num_rowst['sports_wear_vote'];
+															$talent_portion_stagePresent_vote = $num_rowst['talent_portion_stagePresent_vote'];
 
-																if($sports_wear_vote == 0)
+																if($talent_portion_stagePresent_vote == 0)
 																	{
 																		echo "<a href='#'><span class='navbar-brand' href='#''><button class = 'btn btn-outline-info' type='button' data-toggle='modal' data-target='#backtocatergories'>Back to Categories</button></span></a>";
 																	}
@@ -264,7 +273,7 @@ if(isset($_POST['submit_score']))
     <main role="main">
       <section class="jumbotron jumbotron-fluid text-left py-4">
         <div class="container">
-		      <h3 class="jumbotron-heading" style="font-family: 'Livvic', sans-serif;">Talent Portion (100%)</h3>
+		      <h3 class="jumbotron-heading" style="font-family: 'Livvic', sans-serif;">Talent Portion (100pts)</h3>
 		        <p style="font-family: OCR A">CRITERIA:
 							<ul>
 								<li class="active"><a href="" style="font-family: 'Livvic', sans-serif;">Stage Present (20pts)</a></li>
@@ -322,13 +331,13 @@ if(isset($_POST['submit_score']))
 													{
 														$id_contestant1 = $num_rows1['id_contestant'];
 														$name_judge = $num_rows1['name_judge'];
-														$sports_wear = $num_rows1['sports_wear'];
+														$talent_portion_stagePresent = $num_rows1['talent_portion_stagePresent'];
 														
 														if($name_judge == $judge)
 														{
-															$sports_wear_editt = $num_rows1['sports_wear_edit'];
-															$sports_wear_vote = $num_rows1['sports_wear_vote'];
-															if($sports_wear_vote == 0)
+															$sports_wear_editt = $num_rows1['talent_portion_stagePresent_edit'];
+															$talent_portion_stagePresent_vote = $num_rows1['talent_portion_stagePresent_vote'];
+															if($talent_portion_stagePresent_vote == 0)
 															{
 													echo "
 
@@ -357,7 +366,6 @@ if(isset($_POST['submit_score']))
 														<div class='modal-body'>Select 'Submit' below if you are sure with your score.</div>
 														<div class='modal-footer'>
 															<button class='btn btn-secondary' type='button' data-dismiss='modal'>Cancel</button>
-															
 																<button class = 'btn btn-danger' name = 'submit_score' id='button-addon2'
 																										value = '$id_contestant'>Submit</button>
 															
