@@ -26,7 +26,7 @@ if(isset($_POST['submit_score']))
 	if($score <101)
 	{
 	
-		$update = "UPDATE score_card SET talent_portion_stagePresent = '$score',talent_portion_stagePresent_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
+		$update = "UPDATE score_card SET talent_portion_audience_impact = '$score',talent_portion_audience_impact_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
 		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, 
@@ -41,11 +41,24 @@ if(isset($_POST['submit_score']))
 			SUM(sports_wear_figure)/7 as 'sports_wear_figure', 
 			SUM(sports_wear_sports_identity)/7 as 'sports_wear_sports_identity', 
 			SUM(sports_wear_PoiseandBearing)/7 as 'sports_wear_PoiseandBearing', 
-			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact' 
+			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact', 
+			SUM(preliminary_interview_WitandContext)/7 as 'preliminary_interview_WitandContext', 
+			SUM(preliminary_interview_stagePresent)/7 as 'preliminary_interview_stagePresent', 
+			SUM(preliminary_interview_ProjectionandDelivery)/7 as 'preliminary_interview_ProjectionandDelivery', 
+			SUM(preliminary_interview_overall_impact)/7 as 'preliminary_interview_overall_impact',
+			SUM(formal_wear_DesignandFitting)/7 as 'formal_wear_DesignandFitting', 
+			SUM(formal_wear_stageDeportment)/7 as 'formal_wear_stageDeportment', 
+			SUM(formal_wear_PoiseandBearing)/7 as 'formal_wear_PoiseandBearing', 
+			SUM(formal_wear_overall_impact)/7 as 'formal_wear_overall_impact',
+			SUM(final_interview_WitandContext)/7 as 'final_interview_WitandContext', 
+			SUM(final_interview_stagePresence)/7 as 'final_interview_stagePresence', 
+			SUM(final_interview_ProjectionandDelivery)/7 as 'final_interview_ProjectionandDelivery', 
+			SUM(final_interview_overall_impact)/7 as 'final_interview_overall_impact'
 			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
 			{
+						//       TALENT PORTION  //
 
 				$talent_portion_stagePresent = $num_rows2['talent_portion_stagePresent'];
 				$talent_portion_mastery = $num_rows2['talent_portion_mastery'];
@@ -61,6 +74,8 @@ if(isset($_POST['submit_score']))
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+				//                PRODUCTION NUMBER               //////////////////
+
 				$production_PoiseandBearing = $num_rows2['production_PoiseandBearing'];
 				$production_mastery = $num_rows2['production_mastery'];
 				$production_self_introduction = $num_rows2['production_self_introduction'];
@@ -75,6 +90,8 @@ if(isset($_POST['submit_score']))
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+					//                     SPORTS WEAR            ////////
+
 				$sports_wear_figure = $num_rows2['sports_wear_figure'];
 				$sports_wear_sports_identity = $num_rows2['sports_wear_sports_identity'];
 				$sports_wear_PoiseandBearing = $num_rows2['sports_wear_PoiseandBearing'];
@@ -88,27 +105,65 @@ if(isset($_POST['submit_score']))
 				$sports_wear_total = ROUND($sports_wear_figure_average + $sports_wear_sports_identity_average + $sports_wear_PoiseandBearing_average + $sports_wear_overall_impact_average,2);
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+					////////////////     	PRELIMINARY INTERVIEW                      ///////
+				$preliminary_interview_WitandContext = $num_rows2['preliminary_interview_WitandContext'];
+				$preliminary_interview_stagePresent = $num_rows2['preliminary_interview_stagePresent'];
+				$preliminary_interview_ProjectionandDelivery = $num_rows2['preliminary_interview_ProjectionandDelivery'];
+				$preliminary_interview_overall_impact = $num_rows2['preliminary_interview_overall_impact'];
+
+				$preliminary_interview_WitandContext_average = ROUND($preliminary_interview_WitandContext,2);
+				$preliminary_interview_stagePresent_average = ROUND($preliminary_interview_stagePresent,2);
+				$preliminary_interview_ProjectionandDelivery_average = ROUND($preliminary_interview_ProjectionandDelivery,2);
+				$preliminary_interview_overall_impact_average = ROUND($preliminary_interview_overall_impact,2);
+
+				$preliminary_interview_total = ROUND($preliminary_interview_WitandContext_average + $preliminary_interview_stagePresent_average + $preliminary_interview_ProjectionandDelivery_average + $preliminary_interview_overall_impact_average,2);
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+				///                FORMAL WEAR & EVENING GOWN
 
-				$preliminary_interview_total = $num_rows2['preliminary_interview_total'];
-				$formal_wear_total = $num_rows2['formal_wear_total'];
-				$final_interview_total = $num_rows2['final_interview_total'];
+				$formal_wear_DesignandFitting = $num_rows2['formal_wear_DesignandFitting'];
+				$formal_wear_stageDeportment = $num_rows2['formal_wear_stageDeportment'];
+				$formal_wear_PoiseandBearing = $num_rows2['formal_wear_PoiseandBearing'];
+				$formal_wear_overall_impact = $num_rows2['formal_wear_overall_impact'];
 
+				$formal_wear_DesignandFitting_average = ROUND($formal_wear_DesignandFitting,2);
+				$formal_wear_stageDeportment_average = ROUND($formal_wear_stageDeportment,2);
+				$formal_wear_PoiseandBearing_average = ROUND($formal_wear_PoiseandBearing,2);
+				$formal_wear_overall_impact_average = ROUND($formal_wear_overall_impact,2);
 
-				
-				$grand_total = ($talent_portion_total * .25) + ($production_total * .10) + ($sports_wear_total* .10) + ($preliminary_interview_total * .15) + ($final_interview_total * .25) + ($formal_wear_total * .15);
+				$formal_wear_total = ROUND($formal_wear_DesignandFitting_average + $formal_wear_stageDeportment_average + $formal_wear_PoiseandBearing_average + $formal_wear_overall_impact_average,2);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					///////////             final  interview   
+
+				$final_interview_WitandContext = $num_rows2['final_interview_WitandContext'];
+				$final_interview_stagePresence = $num_rows2['final_interview_stagePresence'];
+				$final_interview_ProjectionandDelivery = $num_rows2['final_interview_ProjectionandDelivery'];
+				$final_interview_overall_impact = $num_rows2['final_interview_overall_impact'];
+
+				$final_interview_WitandContext_average = ROUND($final_interview_WitandContext,2);
+				$final_interview_stagePresence_average = ROUND($final_interview_stagePresence,2);
+				$final_interview_ProjectionandDelivery_average = ROUND($final_interview_ProjectionandDelivery,2);
+				$final_interview_overall_impact_average = ROUND($final_interview_overall_impact,2);
+
+				$final_interview_total = ROUND($final_interview_WitandContext_average + $final_interview_stagePresence_average + $final_interview_ProjectionandDelivery_average + $final_interview_overall_impact_average,2);
+
+				//grand total is the top 3 
+				$grand_total = ($talent_portion_total * .25) + ($production_total * .10) + ($sports_wear_total* .10) + ($preliminary_interview_total * .15) + ($formal_wear_total * .15);
 				
 				$update_grand_total = "UPDATE score_card SET grand_total = '$grand_total' WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'";
 				mysqli_query($link,$update_grand_total);
 
 			}
 //x
-				$sql_talent_portion_stagePresent_updateByJudgeName = "UPDATE talent_portion SET stage_present = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
-				mysqli_query($link,$sql_talent_portion_stagePresent_updateByJudgeName);
+				$sql_talent_portion_audience_impact_updateByJudgeName = "UPDATE talent_portion SET audience_impact = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
+				mysqli_query($link,$sql_talent_portion_audience_impact_updateByJudgeName);
 			
 	}
 	else
@@ -120,47 +175,24 @@ if(isset($_POST['submit_score']))
 
 			if(isset($_POST['submit_edit_score']))
 			{
+				$judge_session = $_SESSION['login_judge'];
 				$edit_scoreInput = $_POST['edit_scoreInput'];
 				$edit_judge = $_POST['edit_judge'];
 				$edit_name_contestant = $_POST['edit_name_contestant'];
-				$sports_edit_relevance = $_POST['sports_edit_relevance'];
+				$talent_audience_impact_edit = $_POST['talent_audience_impact_edit'];
 
-					if($sports_edit_relevance == 0)
+					if($talent_audience_impact_edit == 0)
 					{
-						$updateScoreCard = "UPDATE score_card SET sports_wear = '$edit_scoreInput',sports_wear_vote = '1', sports_wear_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
+							$updateScoreCard = "UPDATE score_card SET talent_portion_audience_impact = '$edit_scoreInput',talent_portion_audience_impact_vote = '1', talent_portion_audience_impact_edit = '1' WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$judge_session'";
 								mysqli_query($link,$updateScoreCard);
-		
-						if($edit_judge == 'judge1')
-						{
-							$sql_sports_wear_judge1 = "UPDATE sports_wear SET judge1 = '$edit_scoreInput' WHERE name = '$edit_name_contestant'";
-							mysqli_query($link,$sql_sports_wear_judge1);
-						}
-						elseif($edit_judge == 'judge2')
-						{
-							$sql_sports_wear_judge2 = "UPDATE sports_wear SET judge2 = '$edit_scoreInput' WHERE name = '$edit_name_contestant'";
-							mysqli_query($link,$sql_sports_wear_judge2);
-						}
-						elseif($edit_judge == 'judge3')
-						{
-							$sql_sports_wear_judge3 = "UPDATE sports_wear SET judge3 = '$edit_scoreInput' WHERE name = '$edit_name_contestant'";
-							mysqli_query($link,$sql_sports_wear_judge3);
-						}
-						elseif($edit_judge == 'judge4')
-						{
-							$sql_sports_wear_judge4 = "UPDATE sports_wear SET judge4 = '$edit_scoreInput' WHERE name = '$edit_name_contestant'";
-							mysqli_query($link,$sql_sports_wear_judge4);
-						}
-						elseif($edit_judge == 'judge5')
-						{
-							$sql_sports_wear_judge5 = "UPDATE sports_wear SET judge5 = '$edit_scoreInput' WHERE name = '$edit_name_contestant'";
-							mysqli_query($link,$sql_sports_wear_judge5);
-						}
+
+							$sql_talent_audience_impact_editScore = "UPDATE talent_portion SET audience_impact = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
+							mysqli_query($link,$sql_talent_audience_impact_editScore);
 
 					}
 					else
 					{
-
-						echo '<script>alert("You can\'t update twice");window.location.assign("sports_wear_relevance.php")</script>';
+						echo '<script>alert("YOU CAN\'T UPDATE TWICE");window.location.assign("talent_night_mastery_male.php")</script>';
 				}
 			}
 ?>
@@ -176,7 +208,7 @@ if(isset($_POST['submit_score']))
     <link rel="icon" href="img/final_logo.png" type="image/x-icon">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <title>Talent Portion</title>
+    <title>Talent Portion | Female (Audience Impact 10pts)</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -217,6 +249,8 @@ if(isset($_POST['submit_score']))
             text-decoration: none;
             background: transparent;
             text-align: center;
+            width: 280px;
+            font-family: 'Livvic', sans-serif;
 				}
 				input.red{
 					 border-color: none;
@@ -229,12 +263,17 @@ if(isset($_POST['submit_score']))
             text-decoration: none;
             background: transparent;
             width: 100px;
+            font-family: 'Livvic', sans-serif;
 				}
 				input:focus {
  					border: none;
  					outline: none;
+ 					font-family: 'Livvic', sans-serif;
 				}
 
+				::placeholder{
+					font-family: 'Livvic', sans-serif;
+				}
 
     </style>
     
@@ -246,7 +285,8 @@ if(isset($_POST['submit_score']))
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
 								<?php
-										$link = mysqli_connect("localhost","root","","tabulation");
+
+											$link = mysqli_connect("localhost","root","","tabulation");
 											
 											$sql = mysqli_query($link,"SELECT *FROM contestant ORDER BY id_contestant ASC");
 											$temp;
@@ -263,26 +303,30 @@ if(isset($_POST['submit_score']))
 												$picture = $num_rows['picture'];
 												$modal++;
 											}
+										$link = mysqli_connect("localhost","root","","tabulation");
 
 											$judge = $_SESSION['login_judge'];
-											$sql5 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' AND name_judge = '$judge'");
+											$sql5 = mysqli_query($link,"SELECT  * from score_card where name_judge = '$judge' and gender = 'Female' GROUP BY talent_portion_audience_impact_vote ORDER BY talent_portion_audience_impact_vote ASC LIMIT 1");
 							
 												for($b = 0 ; $b < $num_rowst = mysqli_fetch_array($sql5) ; $b++ )
-													{
+													{	
 														$id_contestant1 = $num_rowst['id_contestant'];
-														$name_judge = $num_rowst['name_judge'];
+														$name_judgeD = $num_rowst['name_judge'];
+														$full_name = $num_rowst['name_contestant'];
+														$gender = $num_rowst['gender'];
 
-														if($name_judge == $judge)
+
+														if($name_judgeD == $judge)
 														{
-															$talent_portion_stagePresent_vote = $num_rowst['talent_portion_stagePresent_vote'];
+															$talent_portion_audience_impact_vote = $num_rowst['talent_portion_audience_impact_vote'];
 
-																if($talent_portion_stagePresent_vote == 0)
+																if($talent_portion_audience_impact_vote == 0)
 																	{
 																		echo "<a href='#'><span class='navbar-brand' href='#''><button class = 'btn btn-outline-info' type='button' data-toggle='modal' data-target='#backtocatergories'>Back to Categories</button></span></a>";
 																	}
 																	else
 																	{
-																		echo "<a href='Categories.php'><span class='navbar-brand' href='#''><button class = 'btn btn-outline-info'>Back to Categories</button></span></a>";
+																		echo "<a href='Categories.php'><span class='navbar-brand' href='#''><button class = 'btn btn-outline-success'>Back to Categories</button></span></a>";
 																	}
 															}
 														}
@@ -310,10 +354,18 @@ if(isset($_POST['submit_score']))
 		      <h3 class="jumbotron-heading" style="font-family: 'Livvic', sans-serif;">Talent Portion (100pts)</h3>
 		        <p style="font-family: OCR A">CRITERIA:
 							<ul>
-								<li class="active"><a href="" style="font-family: 'Livvic', sans-serif;">Stage Present (20pts)</a></li>
-								<li><a href="" style="color: black;font-family: 'Livvic', sans-serif;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'">Mastery (40pts)</a></li>
-								<li><a href="" style="color: black;font-family: 'Livvic', sans-serif;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'">Uniqueness (30pts)</a></li>
-								<li><a href="" style="color: black;font-family: 'Livvic', sans-serif;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'">Audience Impact (10pts)</a></li>
+								<li>
+										<a href="talent_night_stagePresent_Female.php" style="color: black;font-family: 'Livvic', sans-serif;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'">Stage Present (20pts) | Female</a><br>
+								</li>
+								<li>
+									<a href="talent_night_mastery_Female.php" style="color: black;font-family: 'Livvic', sans-serif;"> Mastery (40pts) | Female</a>
+								</li>
+								<li>
+									<a href="talent_night_uniqueness_Female.php" style="color: black;font-family: 'Livvic', sans-serif;" > Uniqueness (30pts) | Female</a>
+								</li>
+								<li class="active">
+									<a href="talent_night_audience_impact_Female.php" style="color: red;font-family: 'Livvic', sans-serif;" ><i class="fa fa-arrow-right" style="margin-left: -18px"></i> Audience Impact (10pts) | Female</a>
+								</li>
 							</ul>
 						</p>
         </div>
@@ -327,7 +379,7 @@ if(isset($_POST['submit_score']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT * FROM contestant where gender = 'Female' order by gender DESC, talent_portion_sequenceNo ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -339,6 +391,7 @@ if(isset($_POST['submit_score']))
 										$team = $num_rows['team'];
 										$full_name = $num_rows['full_name'];
 										$candidate_no = $num_rows['candidate_no'];
+										$sequence_no = $num_rows['talent_portion_sequenceNo'];
 										$picture = $num_rows['picture'];
 										$modal++;
 										if($gender == "Male")
@@ -356,7 +409,7 @@ if(isset($_POST['submit_score']))
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
-													<h5 class='mt-0' style='font-family:OCR A'>Candidate #$candidate_no - $team</h5>
+													<h5 class='mt-0' style='font-family:OCR A'>Candidate #$sequence_no - <text style='color:red'>$team</text></h5>
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>";
 							
 													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' AND name_judge = '$judge'");
@@ -365,20 +418,20 @@ if(isset($_POST['submit_score']))
 													{
 														$id_contestant1 = $num_rows1['id_contestant'];
 														$name_judge = $num_rows1['name_judge'];
-														$talent_portion_stagePresent = $num_rows1['talent_portion_stagePresent'];
+														$talent_portion_audience_impact = $num_rows1['talent_portion_audience_impact'];
 														
 														if($name_judge == $judge)
 														{
-															$sports_wear_editt = $num_rows1['talent_portion_stagePresent_edit'];
-															$talent_portion_stagePresent_vote = $num_rows1['talent_portion_stagePresent_vote'];
-															if($talent_portion_stagePresent_vote == 0)
+															$talent_portion_audience_impact_edit = $num_rows1['talent_portion_audience_impact_edit'];
+															$talent_portion_audience_impact_vote = $num_rows1['talent_portion_audience_impact_vote'];
+															if($talent_portion_audience_impact_vote == 0)
 															{
 													echo "
 
 													<div class = 'col-md-6 col-lg-4 my-7'>
 														<form method = 'post'>
 															<div class='input-group mb-3'>
-															  <input type='number' min='1' max = '20' class='form-control' placeholder='Score' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='2' pattern='[0-9]{1,}'>
+															  <input type='number' min='1' max = '10' class='form-control' placeholder='Score for Audience Impact' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='2' pattern='[0-9]{1,}'>
 															  <input type = 'hidden' name ='judge' value='$judge'>
 															  <input type = 'hidden' name ='name_contestant' value='$full_name'>
 																  <div class='input-group-append'>
@@ -416,32 +469,50 @@ if(isset($_POST['submit_score']))
 										{
 
 											echo "
-											<div class='col-md-6 col-lg-7 my-1'>
+											<div class='col-md-6 col-lg-7' style='margin-top:-12px'>
 												<table>
 													<tr>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$sports_wear</td>
+														<td style='display:none'>$talent_portion_audience_impact</td>
 														<td style='display:none'>$judge</td>
 														<td style='display:none'>$full_name</td>
 														<td style='display:none'>$candidate_no</td>
 														<td style='display:none'>$team</td>
-														<td style='display:none'>$sports_wear_editt</td>
-														<td><center>
-																<span style = 'color:red;font-family:Calibri'>Your vote has already been recorded for this contestant!</span><br>
+														<td style='display:none'>$talent_portion_audience_impact_edit</td>
+														<td style='display:none'>$sequence_no</td>
+													";
+													if($talent_portion_audience_impact_edit == 0)
+													{
+
+											echo "		
+														<td>
+															<center>
+																<span style = 'color:red;font-family:Calibri'>Your score has been recorded for this contestant!</span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $talent_portion_audience_impact</text></span><br>
 														  <a href='' class='editScore' data-toggle='modal' data-target='#editScoreModal' style='text-decoration:none;color: black'><span class='btn my-2 btn-outline-secondary'><i class='fa fa-pencil-square-o'> <text style='font-family:Century Gothic'>Edit Score</text></i></span></a>
-														</center></td>
-													</tr>
+															</center>
+														</td>
+													";
+													}
+													else
+													{
+											echo "
+														<td>
+															<center>
+																<span style = 'color:red;font-family:Calibri'>Your updated score has already been recorded for this contestant!</span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $talent_portion_audience_impact</text></span><br>
+															</center>
+														</td>
+													";
+													}
+
+										echo "</tr>
 												</table>
 											</div>
 													</div>
 												  </div>
-												
-												
-														
-														
-
-														
-													 ";
+													
+														";
 													
 										}
 									}
@@ -456,7 +527,7 @@ if(isset($_POST['submit_score']))
 									}
 					?>
 
-			      </div>
+			      </div >
 			    </center>
       	</div>
     </main>
@@ -494,16 +565,21 @@ if(isset($_POST['submit_score']))
    			<div class="modal-dialog" role="document">
    				<div class="modal-content">
    					<div class="modal-header">
-   						<h5 class="modal-title" id="exampleModalLabel">Information</h5>
+   						<h4 class="modal-title" id="exampleModalLabel">
+   							Warning
+   							<small style="font-family:Banschrift"> 
+   								[empty fields]
+   							</small>
+   						</h4>
    						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
    							
    						</button>
    					</div>
    					<div class="modal-body">
-   						All fields of candidates must be filled up completely!<br>
+   						<text style="font-family: 'Livvic', sans-serif;;">All fields of candidates must be filled up completely!</text><br>
    					</div>
    					<div class="modal-footer">
-   						<a href="categories.php"><button class="btn btn-danger" type="button">Back to Categories</button></a>
+   						<!--<a href="categories.php"><button class="btn btn-danger" type="button">Back to Categories</button></a>-->
    						<button class="btn btn-secondary" type="button" data-dismiss="modal">Okay</button>
    					</div>
    				</div>
@@ -578,25 +654,25 @@ if(isset($_POST['submit_score']))
 							<div class='modal-dialog' role='document'>
 								<div class='modal-content'>
 									<div class='modal-header'>
-										<h5 class='modal-title' id='exampleModalLabel'>Edit Score</h5><br>
+										<h5 class='modal-title' id='exampleModalLabel' style="font-family: 'Livvic', sans-serif;">Edit Score</h5><br>
 										<button class='close' type='button' data-dismiss='modal' aria-label='Close'></button>
 									</div>
 									<div class='modal-body'>
-										<h6>Relevance to Sports (30pts)</h6><p></p>
-										<p style="color:red;">Note: You can only update once.</p>
+										<h6 style="font-family: 'Livvic', sans-serif;font-weight: bold;">Audience Impact | Female (10pts)</h6><p></p>
+										<p style="font-family: 'Livvic', sans-serif;color:red">Note: You can only update once.</p>
 										
-										  Contestant Number: <input type="text" id = "id_contestant" class="re"readonly disabled /><br>
-										  Contestant Team: <input type="text" id = "team" class="re"readonly disabled/><br>
-											Contestant Name: <input type="text" id = "name_contestant" name="edit_name_contestant" class="re"readonly style="cursor:auto;" /><br><br>
-											<input type="text" id="sports_edit_relevance" name="sports_edit_relevance" class="re"readonly hidden />
-											Submitted Score: <input type="number" id = "initial_score" class="re"readonly disabled/><br>
+										  <text style="font-family: 'Livvic', sans-serif;">Contestant Number:</text> <input type="text" id = "sequence_no" class="re"readonly disabled /><br>
+										  <text style="font-family: 'Livvic', sans-serif;">Contestant Team:</text> <input type="text" id = "team" class="re"readonly disabled/><br>
+											<text style="font-family: 'Livvic', sans-serif;">Contestant Name:</text> <input type="text" id = "name_contestant" name="edit_name_contestant" class="re"readonly style="cursor:auto;" /><br><br>
+											<input type="text" id="talent_audience_impact_edit" name="talent_audience_impact_edit" class="re" readonly hidden />
+											<text style="font-family: 'Livvic', sans-serif;">Submitted Score:</text> <input type="number" id = "initial_score" class="re"readonly disabled/><br>
 											<input type="text" id = "judge" name="edit_judge" class="re"readonly hidden /><br>
-											New Score: <input type="number" min="1" max="30" name="edit_scoreInput" class="red" required aria-describedby='button-addon3'/>
+											<text style="font-family: 'Livvic', sans-serif;">New Score:</text> <input type="number" min="1" max="10" name="edit_scoreInput" class="red" required aria-describedby='button-addon3'/>
 									</div>
 									<div class='modal-footer'>
 
-																		<button class='btn btn-secondary' type='button' data-dismiss='modal'>Cancel</button>
-																		<button class = 'btn btn-danger' type='submit' name ='submit_edit_score' id='button-addon3'>Update</button>
+																		<button class='btn btn-secondary' type='button' data-dismiss='modal' style="font-family: 'Livvic', sans-serif;">Cancel</button>
+																		<button class = 'btn btn-danger' type='submit' name ='submit_edit_score' id='button-addon3' style="font-family: 'Livvic', sans-serif;">Enter</button>
 										
 									</div>
 								</div>
@@ -621,7 +697,8 @@ if(isset($_POST['submit_score']))
                     $('#name_contestant').val(data[3]);
                     $('#id_contestant').val(data[4]);
                     $('#team').val(data[5]);
-                    $('#sports_edit_relevance').val(data[6]);
+                    $('#talent_audience_impact_edit').val(data[6]);
+                    $('#sequence_no').val(data[7]);
                    
                 });
             });

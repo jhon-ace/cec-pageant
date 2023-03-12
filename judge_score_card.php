@@ -22,13 +22,20 @@ if(empty($_SESSION['login_judge']))
     <link rel="icon" href="img/final_logo.png" type="image/x-icon">
 
     <title>Score Card</title>
-
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="app.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+
+
+    <!--  Material Dashboard CSS    -->
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+
+    <!--     Fonts and icons     -->
+
     <style type="text/css">
     	    html{
     		   scroll-behavior: smooth;
@@ -53,11 +60,11 @@ if(empty($_SESSION['login_judge']))
 				    background-color: green;
 				}
 				.header-text{
-					font-family: 'Livvic', sans-serif;
+					font-family: Maiandra GD;
 					text-align: Left;
 				}
 				td{
-					font-family: Arial;
+            	font-family: 'Livvic', sans-serif;
 				}
     </style>
   </head>
@@ -74,9 +81,9 @@ if(empty($_SESSION['login_judge']))
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" method="post">
 				
-              <button class="btn btn-outline-light my-2 my-sm-0 flo"  type='button' data-toggle="modal" data-target="#exampleModal20000">Log out</button>
+              <a href="index.php"><button class="btn btn-outline-light my-2 my-sm-0 flo"  type='submit' name="logout">Log out</button></a>
             </form>
           </div>
         </div>
@@ -88,21 +95,75 @@ if(empty($_SESSION['login_judge']))
           <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>TALENT PORTION SCORE CARD</b></h2>
+                                <center><div class="card-header align-items-center" style="background-color:#62B866;width:97%;margin-top:-18px;border-radius: 4px;">
+                                    <h2 class="title text-white"><b>TALENT PORTION SCORE CARD</b></h2>
                                    
                                 </div>
+                            </center>
                                 <div class="card-content table-responsive">
                                     
-                                    <table class="table" id="dataTable">
+                                    <table class="table" id="dataTable1">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
+                                        	<p class="text-center header-text"><b>Male Category</b></p>
                                             <th class="header-text">Candidate No.</th>
                                             <th class="header-text">Candidate Team</th>
                                             <th class="header-text">Contestant Name</th>
-                                            <th class="header-text">Stage Present</th>
-                                            <th class="header-text">Mastery</th>
-                                            <th class="header-text">Uniqueness</th>
-                                            <th class="header-text">Audience Impact</th>
+                                            <th class="header-text">Stage Present<br>(20pts)</th>
+                                            <th class="header-text">Mastery<br>(40pts)<br></th>
+                                            <th class="header-text">Uniqueness<br>(30pts)</th>
+                                            <th class="header-text">Audience Impact<br>(10pts)</th>
+                                        </thead>
+                                        <tbody>
+			<?php
+						$link = mysqli_connect("localhost","root","","tabulation");
+				  		
+						
+						$judge_session = $_SESSION['login_judge'];
+			  			
+						$sql_talent_portion = mysqli_query($link,"SELECT * FROM talent_portion where gender = 'Male' and name_judge = '$judge_session' order by gender DESC, talent_portion_sequence ASC");
+						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_talent_portion) ; $a++ )
+						{
+							$candidate_no = $num_rows['talent_portion_sequence'];
+							$candidate_team = $num_rows['team'];
+							$name = $num_rows['name'];
+							$judge = $num_rows['name_judge'];
+							$stage_present = $num_rows['stage_present'];
+							$mastery = $num_rows['mastery'];
+							$uniqueness = $num_rows['uniqueness'];
+							$audience_impact = $num_rows['audience_impact'];
+							
+
+								echo "
+								<tr>
+									<td>$candidate_no</td>
+									<td>$candidate_team</td>
+									<td>$name</td>
+									<td>$stage_present</td>
+									<td>$mastery</td>
+									<td>$uniqueness</td>
+									<td>$audience_impact</td>
+								</tr>
+								
+								";
+							
+							
+						}
+	
+			?>
+				
+                                            
+                                        </tbody>
+                                    </table>
+                                    <table class="table" id="dataTable2">
+                                        <thead style="font-weight: bold;color: black;font-size: 80%">
+											<p class="text-center header-text"><b>Female Category</b></p>
+                                            <th class="header-text">Candidate No.</th>
+                                            <th class="header-text">Candidate Team</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Stage Present<br>(20pts)</th>
+                                            <th class="header-text">Mastery<br>(40pts)<br></th>
+                                            <th class="header-text">Uniqueness<br>(30pts)</th>
+                                            <th class="header-text">Audience Impact<br>(10pts)</th>
                                             
                                         </thead>
                                         <tbody>
@@ -112,7 +173,7 @@ if(empty($_SESSION['login_judge']))
 						
 						$judge_session = $_SESSION['login_judge'];
 			  			
-						$sql_talent_portion = mysqli_query($link,"SELECT * FROM talent_portion where name_judge = '$judge_session' ORDER BY candidate_no ASC,gender ASC");
+						$sql_talent_portion = mysqli_query($link,"SELECT * FROM talent_portion where gender = 'Female' and name_judge = '$judge_session' order by gender DESC, talent_portion_sequence ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_talent_portion) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
@@ -146,6 +207,7 @@ if(empty($_SESSION['login_judge']))
                                             
                                         </tbody>
                                     </table>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -703,7 +765,7 @@ if(empty($_SESSION['login_judge']))
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	  <form method="post">
-	  <div class="modal fade" id="exampleModal20000" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -723,7 +785,16 @@ if(empty($_SESSION['login_judge']))
         </div>
       </div>
     </div>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+    $('#dataTable1').DataTable();
+});
+    </script>
+        <script type="text/javascript">
+        $(document).ready(function () {
+    $('#dataTable2').DataTable();
+});
+    </script>
        <script type="text/javascript">
     	let mybutton = document.getElementById("myBtn");
     	window.onscroll = function() 
@@ -745,38 +816,6 @@ if(empty($_SESSION['login_judge']))
     	}
     </script>
 
-    <script src="js/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/js/material.min.js" type="text/javascript"></script>
-<!--  Charts Plugin -->
-<script src="assets/js/chartist.min.js"></script>
-<!--  Dynamic Elements plugin -->
-<script src="assets/js/arrive.min.js"></script>
-<!--  PerfectScrollbar Library -->
-<script src="assets/js/perfect-scrollbar.jquery.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="assets/js/bootstrap-notify.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Material Dashboard javascript methods -->
-<script src="assets/js/material-dashboard.js?v=1.2.0"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/js/demo.js"></script>
-    
-<script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-   
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-   
-  
-    
-    <script src="js/sb-admin.min.js"></script>
-    
-   
-    <script src="js/bootstrap.min.js"></script>
+ 
   </body>
 </html>

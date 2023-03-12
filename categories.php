@@ -69,16 +69,14 @@ if(empty($_SESSION['login_judge']))
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Talent<br>Portion</b></text></h2>
                 <div class="card-body">
-                  <div class="d-flex justify-content-center align-items-center">
-                    <div class="btn-group">
-                   <a href="talent_night_stagePresent.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    <!--<a href="#" class="btn btn-danger">View</a>-->
-                    </div>
+                   <div class="d-flex justify-content-center align-items-center ">
+                     <a href="talent_night_stagePresent_Male.php" class="btn btn-outline-warning" style="font-family: OCR A">&nbsp;Male&nbsp;</a>&nbsp;
+                     <a href="talent_night_stagePresent_Female.php"  class="btn btn-outline-warning" style="font-family: OCR A">Female</a>
                   </div>
                 </div>
               </div>
             </div>
-
+<!--
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Production<br>Number</b></text></h2>
@@ -86,7 +84,6 @@ if(empty($_SESSION['login_judge']))
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
                    <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
                 </div>
@@ -100,7 +97,6 @@ if(empty($_SESSION['login_judge']))
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
                    <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
                 </div>
@@ -114,7 +110,6 @@ if(empty($_SESSION['login_judge']))
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
                     <a href="preliminary_interview.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
                 </div>
@@ -127,13 +122,12 @@ if(empty($_SESSION['login_judge']))
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
                     <a href="long_gown_and_formal_wear.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-<!-- advocacy ani unta -->
+
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Final<br> Interviews</b></text><br></h2>
@@ -141,14 +135,13 @@ if(empty($_SESSION['login_judge']))
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
                     <a href="final_round.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    <!--<a href="#" class="btn btn-danger">View</a>-->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 			    <?php  }    ?>
-                      <!--<?php
+                      <?php
                   
                 $judge = $_SESSION['login_judge'];
 
@@ -272,7 +265,7 @@ if(empty($_SESSION['login_judge']))
             
 			  <div class="col-md-6 col-lg-4 " >
               <div class="card mb-4 shadow-sm p-5" style="background-color:">
-                <h2 class="text-center mt-5 mb-0 text-dark"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Your Score Card</b></text></h2>
+                <h2 class="text-center mt-5 mb-0 text-dark"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Your Score Card</b></text></h2><br><br>
                 <div class="card-body ">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
@@ -353,3 +346,25 @@ if(empty($_SESSION['login_judge']))
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
+
+
+      <div class="modal fade" id="selectGenderTalent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                
+              </button>
+            </div>
+            <div class="modal-body">
+              Please select: <br>
+              <a href="talent_night_stagePresent.php"><button class="btn btn-secondary" type="button">Male</button></a>
+            </div>
+            <div class="modal-footer">
+              <a href="categories.php"><button class="btn btn-danger" type="button">Back to Categories</button></a>
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">Okay</button>
+            </div>
+          </div>
+        </div>
+      </div>

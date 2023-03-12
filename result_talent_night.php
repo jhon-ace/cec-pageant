@@ -131,112 +131,6 @@ if(empty($_SESSION['login_admin']))
             <div class="content" style="margin-top: -15px;">
                 
                 <div class="container-fluid">
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header" data-background-color="green">
-                                    <h1 class="title"><b>Talent Portion</b><small style="color:white;font-family:Maiandra GD"> (Female Category)</small></h1>
-                                   
-                                </div>
-                                <div class="card-content table-responsive">
-                                    
-                                    <table class="table" id="dataTable1">
-                                        <thead style="font-weight: bold;color: black;font-size: 100%">
-                                            <th>Number</th>
-                                            <th>Gender</th>
-                                            <th>Candidate Name</th>
-                                            <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
-                                            <th>Mastery(40pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
-                                            <th>Uniqueness(30pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
-                                            <th>Audience Impact(10pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
-                                            <th>Total(100pts)</th>
-                                            <th>Rank</th>
-                                            
-                                        </thead>
-                                        <tbody>
-				<?php
-					
-						$link = mysqli_connect("localhost","root","","tabulation");
-				  		
-						$sql = mysqli_query($link,"SELECT tp.name, tp.name_judge, tp.candidate_no, tp.gender, 
-                       SUM(tp.stage_present)/3 AS 'stage_present', 
-                       SUM(tp.mastery)/3 AS 'mastery', 
-                       SUM(tp.uniqueness)/3 AS 'uniqueness', 
-                       SUM(tp.audience_impact)/3 AS 'audience_impact', 
-                       r.no AS 'no', 
-                       DENSE_RANK() OVER (ORDER BY SUM(tp.stage_present + tp.mastery + tp.uniqueness + tp.audience_impact) DESC) AS 'total_rank'
-                        FROM talent_portion tp 
-                        JOIN (SELECT no FROM rank GROUP BY no ORDER BY no ASC) g ON tp.candidate_no = g.no 
-                        JOIN rank r ON tp.candidate_no = r.no 
-                        WHERE tp.gender = 'Female' 
-                        GROUP BY tp.name, r.no 
-                        ORDER BY tp.candidate_no ASC, r.no ASC
-                            ");
-						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
-						{
-                            $name = $num_rows['name'];
-                            $gender = $num_rows['gender'];
-                            $judge = $num_rows['name_judge'];
-                            $candidate_no = $num_rows['candidate_no'];
-                            $stage_present = $num_rows['stage_present'];
-                            $mastery = $num_rows['mastery'];
-                            $uniqueness = $num_rows['uniqueness'];
-                            $audience_impact = $num_rows['audience_impact'];
-                            $rank = $num_rows['total_rank'];
-
-                            $stage_present_average = ROUND($stage_present,2);
-                            $mastery_average = ROUND($mastery,2);
-                            $uniqueness_average = ROUND($uniqueness,2);
-                            $audience_impact_average = ROUND($audience_impact,2);
-                            $talent_portion_total = ROUND($stage_present_average + $mastery_average + $uniqueness_average + $audience_impact_average,2);
-
-                                
-							echo "
-							<tr";
-                            if ($rank == 1) {
-                                        echo ' style="background-color: yellow"';
-                            }
-                            /*elseif($rank == 2){
-                                echo ' style="background-color: #DBDB00"';
-                            }
-                            elseif($rank == 3){
-                                echo ' style="background-color: #FFFF63"';
-                            }*/
-
-                            echo ">";
-                               echo" <td>$candidate_no</td>
-                                <td>$gender</td>
-								<td>$name</td>
-                                <td>$stage_present_average</td>
-                                <td>$mastery_average</td>
-                                <td>$uniqueness_average</td>
-                                <td>$audience_impact_average</td>
-                                <td>$talent_portion_total</td>
-
-                                <td>$rank</td>
-                                
-							</tr>
-							
-							";
-
-                            $rank++;
-							
-						}
-
-
-
-				?>
-                                            
-                                        </tbody>
-                                    </table>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                            
-                    </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -249,7 +143,7 @@ if(empty($_SESSION['login_admin']))
                                     <table class="table" id="dataTable2">
                                         <thead style="font-weight: bold;color: black;font-size: 100%">
                                             <th>Number</th>
-                                            <th>Gender</th>
+                                            <th>Team</th>
                                             <th>Candidate Name</th>
                                             <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
                                             <th>Mastery(40pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
@@ -257,14 +151,13 @@ if(empty($_SESSION['login_admin']))
                                             <th>Audience Impact(10pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
                                             <th>Total(100pts)</th>
                                             <th>Rank</th>
-                                            
                                         </thead>
                                         <tbody>
                 <?php
                     
                         $link = mysqli_connect("localhost","root","","tabulation");
                         
-                        $sql = mysqli_query($link,"SELECT tp.name, tp.name_judge, tp.candidate_no, tp.gender, 
+                        $sql = mysqli_query($link,"SELECT tp.name, tp.name_judge, tp.candidate_no, tp.team, tp.talent_portion_sequence,
                            SUM(tp.stage_present)/3 AS 'stage_present', 
                            SUM(tp.mastery)/3 AS 'mastery', 
                            SUM(tp.uniqueness)/3 AS 'uniqueness', 
@@ -275,15 +168,15 @@ if(empty($_SESSION['login_admin']))
                             JOIN (SELECT no FROM rank GROUP BY no ORDER BY no ASC) g ON tp.candidate_no = g.no 
                             JOIN rank r ON tp.candidate_no = r.no 
                             WHERE tp.gender = 'Male' 
-                            GROUP BY tp.name, r.no 
-                            ORDER BY tp.name ASC, r.no ASC;
+                            GROUP BY tp.name, r.no  ORDER BY tp.talent_portion_sequence ASC
+                           
                             ");
                         for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
                         {
                             $name = $num_rows['name'];
-                            $gender = $num_rows['gender'];
+                            $team = $num_rows['team'];
                             $judge = $num_rows['name_judge'];
-                            $candidate_no = $num_rows['candidate_no'];
+                            $candidate_no = $num_rows['talent_portion_sequence'];
                             $stage_present = $num_rows['stage_present'];
                             $mastery = $num_rows['mastery'];
                             $uniqueness = $num_rows['uniqueness'];
@@ -300,25 +193,18 @@ if(empty($_SESSION['login_admin']))
                             echo "
                             <tr";
                             if ($rank == 1) {
-                                        echo ' style="background-color: yellow"';
+                                        echo ' style="background-color: yellow;font-weight:bold"';
                             }
-                            /*elseif($rank == 2){
-                                echo ' style="background-color: #DBDB00"';
-                            }
-                            elseif($rank == 3){
-                                echo ' style="background-color: #FFFF63"';
-                            }*/
 
                             echo ">";
                                echo" <td>$candidate_no</td>
-                                <td>$gender</td>
+                                <td>$team</td>
                                 <td>$name</td>
                                 <td>$stage_present_average</td>
                                 <td>$mastery_average</td>
                                 <td>$uniqueness_average</td>
                                 <td>$audience_impact_average</td>
                                 <td>$talent_portion_total</td>
-
                                 <td>$rank</td>
                                 
                             </tr>
@@ -339,24 +225,114 @@ if(empty($_SESSION['login_admin']))
                                 </div>
                             </div>
                         </div>
-                            
                     </div>
- 
-                </div>
-            </div>
-           <footer class="footer">
-                <div class="container-fluid">
+                    <div class="container text-center pt-3" ><!-- aaacesss -->
+                        <p style="font-family:'Livvic', sans-serif;font-size: 14px;margin-top: -35px;color:white">&copy; This system was made by Jhon Ace Casabuena and Computer Studies Department</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="green">
+                                    <h1 class="title"><b>Talent Portion</b><small style="color:white;font-family:Maiandra GD"> (Female Category)</small></h1>
+                                   
+                                </div>
+                                <div class="card-content table-responsive">
+                                    
+                                    <table class="table" id="dataTable1">
+                                        <thead style="font-weight: bold;color: black;font-size: 100%">
+                                            <th>Number</th>
+                                            <th>Team</th>
+                                            <th>Candidate Name</th>
+                                            <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Mastery(40pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Uniqueness(30pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Audience Impact(10pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
+                                            <th>Total(100pts)</th>
+                                            <th>Rank</th>
+                                            
+                                        </thead>
+                                        <tbody>
+				<?php
+					
+						$link = mysqli_connect("localhost","root","","tabulation");
+				  		
+						$sql = mysqli_query($link,"SELECT tp.name, tp.name_judge, tp.candidate_no, tp.team, tp.talent_portion_sequence,
+                       SUM(tp.stage_present)/3 AS 'stage_present', 
+                       SUM(tp.mastery)/3 AS 'mastery', 
+                       SUM(tp.uniqueness)/3 AS 'uniqueness', 
+                       SUM(tp.audience_impact)/3 AS 'audience_impact', 
+                       r.no AS 'no', 
+                       DENSE_RANK() OVER (ORDER BY SUM(tp.stage_present + tp.mastery + tp.uniqueness + tp.audience_impact) DESC) AS 'total_rank'
+                        FROM talent_portion tp 
+                        JOIN (SELECT no FROM rank GROUP BY no ORDER BY no ASC) g ON tp.candidate_no = g.no 
+                        JOIN rank r ON tp.candidate_no = r.no 
+                        WHERE tp.gender = 'Female' 
+                        GROUP BY tp.name, r.no 
+                        ORDER BY tp.candidate_no ASC, r.no ASC
+                            ");
+						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
+						{
+                            $name = $num_rows['name'];
+                            $team = $num_rows['team'];
+                            $judge = $num_rows['name_judge'];
+                            $candidate_no = $num_rows['talent_portion_sequence'];
+                            $stage_present = $num_rows['stage_present'];
+                            $mastery = $num_rows['mastery'];
+                            $uniqueness = $num_rows['uniqueness'];
+                            $audience_impact = $num_rows['audience_impact'];
+                            $rank = $num_rows['total_rank'];
+
+                            $stage_present_average = ROUND($stage_present,2);
+                            $mastery_average = ROUND($mastery,2);
+                            $uniqueness_average = ROUND($uniqueness,2);
+                            $audience_impact_average = ROUND($audience_impact,2);
+                            $talent_portion_total = ROUND($stage_present_average + $mastery_average + $uniqueness_average + $audience_impact_average,2);
+
+                                
+							echo "
+							<tr";
+                            if ($rank == 1) {
+                                echo ' style="background-color: yellow;font-weight:bold"';
+                            }
+
+                            echo ">";
+                               echo" <td>$candidate_no</td>
+                                <td>$team</td>
+								<td>$name</td>
+                                <td>$stage_present_average</td>
+                                <td>$mastery_average</td>
+                                <td>$uniqueness_average</td>
+                                <td>$audience_impact_average</td>
+                                <td>$talent_portion_total</td>
+                                <td>$rank</td>
+                                
+							</tr>
+							
+							";
+
+                            $rank++;
+							
+						}
+
+				?>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+
+                <div class="container pt-3">
                     
                     <p class="text-center" style="color: white">
                         &copy;
-                  This system was made by Jhon Ace Casabuena and CAPG Students
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        
+                  This system was made by Jhon Ace Casabuena and Computer Studies Department
                     </p>
                 </div>
-            </footer>
+           
+                </div>
+            </div>
         </div>
     </div>
     
