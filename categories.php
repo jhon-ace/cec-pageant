@@ -81,10 +81,9 @@ if(empty($_SESSION['login_judge']))
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Production<br>Number</b></text></h2>
                 <div class="card-body">
-                  <div class="d-flex justify-content-center align-items-center">
-                    <div class="btn-group">
-                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
-                    </div>
+                  <div class="d-flex justify-content-center align-items-center ">
+                     <a href="production_male_1.php" class="btn btn-outline-warning" style="font-family: OCR A">&nbsp;Male&nbsp;</a>&nbsp;
+                     <a href="talent_night_stagePresent_Female.php"  class="btn btn-outline-warning" style="font-family: OCR A">Female</a>
                   </div>
                 </div>
               </div>

@@ -176,7 +176,7 @@ if(empty($_SESSION['login_judge']))
 						$sql_talent_portion = mysqli_query($link,"SELECT * FROM talent_portion where gender = 'Female' and name_judge = '$judge_session' order by gender DESC, talent_portion_sequence ASC");
 						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_talent_portion) ; $a++ )
 						{
-							$candidate_no = $num_rows['candidate_no'];
+							$candidate_no = $num_rows['talent_portion_sequence'];
 							$candidate_team = $num_rows['team'];
 							$name = $num_rows['name'];
 							$judge = $num_rows['name_judge'];
@@ -210,101 +210,120 @@ if(empty($_SESSION['login_judge']))
                                     <br>
                                 </div>
                             </div>
-                        </div>
-                            
+                        </div> 
                     </div>
-
+                    <br><br>
 				<div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" data-background-color="green">
-                                    <h2 class="title"><b>PRODUCTION NUMBER</b></h2>
+                                <center><div class="card-header align-items-center" style="background-color:#62B866;width:97%;margin-top:-18px;border-radius: 4px;">
+                                    <h2 class="title text-white"><b>PRODUCTION SCORE CARD</b></h2>
                                    
                                 </div>
+                            </center>
                                 <div class="card-content table-responsive">
                                     
-                                    <table class="table" id="dataTable">
+                                    <table class="table" id="dataTable2">
                                         <thead style="font-weight: bold;color: black;font-size: 80%">
-                                            <th class="header-text">Candidate Number</th>
+											<p class="text-center header-text"><b>Male Category</b></p>
+                                            <th class="header-text">Candidate No.</th>
+                                            <th class="header-text">Candidate Team</th>
                                             <th class="header-text">Contestant Name</th>
-                                            <th class="header-text">Score</th>                                           
+                                            <th class="header-text">Poise and Bearing<br>(30pts)</th>
+                                            <th class="header-text">Mastery<br>(30pts)<br></th>
+                                            <th class="header-text">Self Introduction<br>(30pts)</th>
+                                            <th class="header-text">Audience Impact<br>(10pts)</th>
+                                            
                                         </thead>
                                         <tbody>
-			<?php
+<?php
 						$link = mysqli_connect("localhost","root","","tabulation");
 				  		
 						
-						$judge = $_SESSION['login_judge'];
+						$judge_session = $_SESSION['login_judge'];
 			  			
-						$sql_advocacy = mysqli_query($link,"SELECT *FROM advocacy ORDER BY candidate_no ASC,gender ASC");
-						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_advocacy) ; $a++ )
+						$sql_production_PoiseandBearing = mysqli_query($link,"SELECT * FROM production where gender = 'Male' and name_judge = '$judge_session' ORDER BY candidate_no ASC");
+						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_production_PoiseandBearing) ; $a++ )
 						{
 							$candidate_no = $num_rows['candidate_no'];
+							$candidate_team = $num_rows['team'];
 							$name = $num_rows['name'];
-							$judge1 = $num_rows['judge1'];
-							$judge2 = $num_rows['judge2'];
-							$judge3 = $num_rows['judge3'];
-							$judge4 = $num_rows['judge4'];
-							$judge5 = $num_rows['judge5'];
+							$judge = $num_rows['name_judge'];
+							$poiseandbearing = $num_rows['poiseandbearing'];
+							$mastery = $num_rows['mastery'];
+							$self_introduction = $num_rows['self_introduction'];
+							$audience_impact = $num_rows['audience_impact'];
 							
-							if($judge == "judge1")
-							{
+
 								echo "
 								<tr>
 									<td>$candidate_no</td>
+									<td>$candidate_team</td>
 									<td>$name</td>
-									<td>$judge1</td>
+									<td>$poiseandbearing</td>
+									<td>$mastery</td>
+									<td>$self_introduction</td>
+									<td>$audience_impact</td>
 								</tr>
 								
 								";
-							}
-							elseif($judge == "judge2")
-							{
-								echo "
-								<tr>
-									<td>$candidate_no</td>
-									<td>$name</td>
-									<td>$judge2</td>
-								</tr>
-								
-								";
-							}
 							
-							elseif($judge == "judge3")
-							{
-								echo "
-								<tr>
-									<td>$candidate_no</td>
-									<td>$name</td>
-									<td>$judge3</td>
-								</tr>
-								
-								";
-							}
+							
+						}
+	
+			?>
+				
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    
+                                    <table class="table" id="dataTable2">
+                                        <thead style="font-weight: bold;color: black;font-size: 80%">
+											<p class="text-center header-text"><b><br>Female Category</b></p>
+                                            <th class="header-text">Candidate No.</th>
+                                            <th class="header-text">Candidate Team</th>
+                                            <th class="header-text">Contestant Name</th>
+                                            <th class="header-text">Poise and Bearing<br>(30pts)</th>
+                                            <th class="header-text">Mastery<br>(30pts)<br></th>
+                                            <th class="header-text">Self Introduction<br>(30pts)</th>
+                                            <th class="header-text">Audience Impact<br>(10pts)</th>
+                                            
+                                        </thead>
+                                        <tbody>
+<?php
+						$link = mysqli_connect("localhost","root","","tabulation");
+				  		
+						
+						$judge_session = $_SESSION['login_judge'];
+			  			
+						$sql_production_PoiseandBearing = mysqli_query($link,"SELECT * FROM production where gender = 'Female' and name_judge = '$judge_session' ORDER BY candidate_no ASC");
+						for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql_production_PoiseandBearing) ; $a++ )
+						{
+							$candidate_no = $num_rows['candidate_no'];
+							$candidate_team = $num_rows['team'];
+							$name = $num_rows['name'];
+							$judge = $num_rows['name_judge'];
+							$poiseandbearing = $num_rows['poiseandbearing'];
+							$mastery = $num_rows['mastery'];
+							$self_introduction = $num_rows['self_introduction'];
+							$audience_impact = $num_rows['audience_impact'];
+							
 
-							elseif($judge == "judge4")
-							{
 								echo "
 								<tr>
 									<td>$candidate_no</td>
+									<td>$candidate_team</td>
 									<td>$name</td>
-									<td>$judge4</td>
+									<td>$poiseandbearing</td>
+									<td>$mastery</td>
+									<td>$self_introduction</td>
+									<td>$audience_impact</td>
 								</tr>
 								
 								";
-							}
-
-							elseif($judge == "judge5")
-							{
-								echo "
-								<tr>
-									<td>$candidate_no</td>
-									<td>$name</td>
-									<td>$judge5</td>
-								</tr>
-								
-								";
-							}
+							
 							
 						}
 	

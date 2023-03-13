@@ -58,6 +58,13 @@ if(empty($_SESSION['login_admin']))
                             <p style="color: white">Talent Portion</p>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="result_production.php">
+                            <i class="fa fa fa-users" style="color: white"></i>
+                            <p style="color: white">Production</p>
+                        </a>
+                    </li>   
                     
                     <li>
                         <a href="result_sports_wear.php">

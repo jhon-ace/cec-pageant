@@ -405,7 +405,7 @@ if(isset($_POST['submit_score']))
 									
 										echo "
 										<div class='media-body'>
-										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='300px' alt='Generic placeholder image'>
+										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='320px' alt='Generic placeholder image'>
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
