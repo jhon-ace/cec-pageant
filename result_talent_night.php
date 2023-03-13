@@ -142,7 +142,7 @@ if(empty($_SESSION['login_admin']))
                                     
                                     <table class="table" id="dataTable2">
                                         <thead style="font-weight: bold;color: black;font-size: 100%">
-                                            <th>Number</th>
+                                            <th>Candidate<br>Number</th>
                                             <th>Team</th>
                                             <th>Candidate Name</th>
                                             <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
@@ -193,7 +193,7 @@ if(empty($_SESSION['login_admin']))
                             echo "
                             <tr";
                             if ($rank == 1) {
-                                        echo ' style="background-color: yellow;font-weight:bold"';
+                                        echo ' style="background-color: yellow;font-weight:bold;font-size:18px"';
                             }
 
                             echo ">";
@@ -240,7 +240,7 @@ if(empty($_SESSION['login_admin']))
                                     
                                     <table class="table" id="dataTable1">
                                         <thead style="font-weight: bold;color: black;font-size: 100%">
-                                            <th>Number</th>
+                                            <th>Candidate<br>Number</th>
                                             <th>Team</th>
                                             <th>Candidate Name</th>
                                             <th>Stage Present(20pts)<br><small style="font-family:arial;font-size:11px">3 judges average</small></th>
@@ -292,7 +292,7 @@ if(empty($_SESSION['login_admin']))
 							echo "
 							<tr";
                             if ($rank == 1) {
-                                echo ' style="background-color: yellow;font-weight:bold"';
+                                echo ' style="background-color: yellow;font-weight:bold;font-size:18px"';
                             }
 
                             echo ">";

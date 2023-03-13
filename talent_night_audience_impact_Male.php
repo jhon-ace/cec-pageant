@@ -406,7 +406,7 @@ if(isset($_POST['submit_score']))
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
-													<h5 class='mt-0' style='font-family:OCR A'>Candidate #$sequence_no - <text style='color:red'>$team</text></h5>
+													<h5 class='mt-0' style='font-family:OCR A'>Candidate <text style='color:red'><b><text style='font-family: arial'># </tex>$sequence_no</b></text> - <text style='color:red'><b>$team</b></text></h5>
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>";
 							
 													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' AND name_judge = '$judge'");
@@ -428,7 +428,7 @@ if(isset($_POST['submit_score']))
 													<div class = 'col-md-6 col-lg-4 my-7'>
 														<form method = 'post'>
 															<div class='input-group mb-3'>
-															  <input type='number' min='1' max = '10' class='form-control' placeholder='Score' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='2' pattern='[0-9]{1,}'>
+															  <input type='number' min='1' max = '10' class='form-control' placeholder='Example Score: 10' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='2' pattern='[0-9]{1,}'>
 															  <input type = 'hidden' name ='judge' value='$judge'>
 															  <input type = 'hidden' name ='name_contestant' value='$full_name'>
 																  <div class='input-group-append'>
@@ -655,7 +655,7 @@ if(isset($_POST['submit_score']))
 										<button class='close' type='button' data-dismiss='modal' aria-label='Close'></button>
 									</div>
 									<div class='modal-body'>
-										<h6 style="font-family: 'Livvic', sans-serif;font-weight: bold;">Stage Presents | Male (20pts)</h6><p></p>
+										<h6 style="font-family: 'Livvic', sans-serif;font-weight: bold;">Audience Impact | Male (10pts)</h6><p></p>
 										<p style="font-family: 'Livvic', sans-serif;color:red">Note: You can only update once.</p>
 										
 										  <text style="font-family: 'Livvic', sans-serif;">Contestant Number:</text> <input type="text" id = "sequence_no" class="re"readonly disabled /><br>

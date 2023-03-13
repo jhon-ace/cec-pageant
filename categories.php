@@ -76,7 +76,7 @@ if(empty($_SESSION['login_judge']))
                 </div>
               </div>
             </div>
-<!--
+
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Production<br>Number</b></text></h2>
@@ -141,6 +141,7 @@ if(empty($_SESSION['login_judge']))
               </div>
             </div>
 			    <?php  }    ?>
+          <!--
                       <?php
                   
                 $judge = $_SESSION['login_judge'];
@@ -265,7 +266,7 @@ if(empty($_SESSION['login_judge']))
             
 			  <div class="col-md-6 col-lg-4 " >
               <div class="card mb-4 shadow-sm p-5" style="background-color:">
-                <h2 class="text-center mt-5 mb-0 text-dark"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Your Score Card</b></text></h2><br><br>
+                <h2 class="text-center mt-5 mb-0 text-dark"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Your Score Card</b></text></h2>
                 <div class="card-body ">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
