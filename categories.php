@@ -59,73 +59,233 @@ if(empty($_SESSION['login_judge']))
                   
                 $judge = $_SESSION['login_judge'];
 
-                  if (($judge == 'judge1') OR ($judge == 'judge2') OR ($judge == 'judge3') OR ($judge == 'judge4') OR ($judge == 'judge5'))
+                  if (($judge == 'judge1') OR ($judge == 'judge2') OR ($judge == 'judge3') OR ($judge == 'judge4') OR ($judge == 'judge5') OR ($judge == 'judge6') OR ($judge == 'judge7'))
                   {
 
 
             ?>
 
-            <div class="col-md-6 col-lg-4">
-              <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Talent<br>Portion</b></text></h2>
-                <div class="card-body">
-                   <div class="d-flex justify-content-center align-items-center ">
-                     <a href="talent_night_stagePresent_Male.php" class="btn btn-outline-warning" style="font-family: OCR A">&nbsp;Male&nbsp;</a>&nbsp;
-                     <a href="talent_night_stagePresent_Female.php"  class="btn btn-outline-warning" style="font-family: OCR A">Female</a>
-                  </div>
-                </div>
-              </div>
-            </div>
 
+<!------------------------------------PRODUCTION NUMBER--------------------------------------------------------------->
+
+            <?php 
+                  
+                $link = mysqli_connect("localhost","root","","tabulation");
+
+                  $sql_status1 = mysqli_query($link,"SELECT * from category where category_name = 'Production' and id = 2");
+                    for($x = 0 ; $x < $num_rowsp1 = mysqli_fetch_array($sql_status1) ; $x++ )
+                    {
+
+                      $status = $num_rowsp1['status'];
+
+                      if($status == 'ONGOING')
+                      {
+              ?>
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Production<br>Number</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center ">
-                     <a href="production_male_1.php" class="btn btn-outline-warning" style="font-family: OCR A">&nbsp;Male&nbsp;</a>&nbsp;
-                     <a href="talent_night_stagePresent_Female.php"  class="btn btn-outline-warning" style="font-family: OCR A">Female</a>
+                     <!--<a href="production_male_1.php" class="btn btn-outline-warning" style="font-family: Arial">&nbsp;Male&nbsp;</a>&nbsp;
+                     <a href="production_female_1.php"  class="btn btn-outline-warning" style="font-family: Arial">Female</a>-->
+                      <a href="production_male_1.php" class="btn btn-outline-warning" style="font-family: Arial">View</a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              <?php  }
+                    else 
+                    {
+              ?>
+            <div class="col-md-6 col-lg-4">
+                          <div class="card mb-4 shadow-sm p-5">
+                            <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Production<br>Number</b></text></h2>
+                            <div class="card-body">
+                              <div class="d-flex justify-content-center align-items-center ">
+                                 <!--<a href="production_male_1.php" class="btn btn-outline-warning" style="font-family: Arial">&nbsp;Male&nbsp;</a>&nbsp;
+                                 <a href="production_female_1.php"  class="btn btn-outline-warning" style="font-family: Arial">Female</a>-->
+                                  <a href="#" class="btn btn-success" style="font-family: Arial">SUBMITTED (LOCKED)</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
+              <?php
+                    }
+
+                  } 
+
+              ?>
+
+
+
+<!------------------------------------SPORTS WEAR--------------------------------------------------------------->
+            <?php 
+                  
+                $link = mysqli_connect("localhost","root","","tabulation");
+
+                  $sql_status2 = mysqli_query($link,"SELECT * from category where category_name = 'Sports_Wear' and id = 3");
+                    for($x = 0 ; $x < $num_rowsp2 = mysqli_fetch_array($sql_status2) ; $x++ )
+                    {
+
+                      $status = $num_rowsp2['status'];
+
+                      if($status == 'ONGOING')
+                      {
+              ?>
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Sports<br>Wear</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                   <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
+                      <a href="sports_wear_relevance.php" class="btn btn-outline-warning" style="font-family: Arial">View</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+          <?php }
+                else 
+                {
+          ?>
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Preliminary<br>Interviews</b></text></h2>
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Sports<br>Wear</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="preliminary_interview.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
+                      <a href="#" class="btn btn-success" style="font-family: Arial">SUBMITTED (LOCKED)</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          <?php
+
+                } 
+
+              }
+          ?>
+
+ 
+
+<!------------------------------------FORMAL WEAR--------------------------------------------------------------->
+
+<?php 
+                  
+                $link = mysqli_connect("localhost","root","","tabulation");
+
+                  $sql_status7 = mysqli_query($link,"SELECT * from category where category_name = 'Formal_Wear' and id = 5");
+                    for($xw = 0 ; $xw < $num_rowsp45 = mysqli_fetch_array($sql_status7) ; $xw++ )
+                    {
+
+                      $status = $num_rowsp45['status'];
+
+                      if($status == 'ONGOING')
+                      {
+              ?>
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
                 <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Formal Wear and Evening Gown</b></text></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="long_gown_and_formal_wear.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
+                    <a href="long_gown_and_formal_wear.php" class="btn btn-outline-warning" style="font-family: Arial">View</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+<?php     }
+          else
+          {
+?>
+            <div class="col-md-6 col-lg-4">
+              <div class="card mb-4 shadow-sm p-5">
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Formal Wear and Evening Gown</b></text></h2>
+                <div class="card-body">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="btn-group">
+                   <a href="#" class="btn btn-success" style="font-family: Arial">SUBMITTED (LOCKED)</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+<?php   }  
+      }
+       ?>
+
+
+
+<!------------------------------------ PRELIMINARY INTERVIEW --------------------------------------------------------->
+<?php 
+                  
+                $link = mysqli_connect("localhost","root","","tabulation");
+
+                  $sql_status3c = mysqli_query($link,"SELECT * from category where category_name = 'Preliminary_Interview' and id = 4");
+                    for($xj = 0 ; $xj < $num_rowsp49 = mysqli_fetch_array($sql_status3c) ; $xj++ )
+                    {
+
+                      $status = $num_rowsp49['status'];
+
+                      if($status == 'ONGOING')
+                      {
+              ?>
+            <div class="col-md-6 col-lg-4">
+              <div class="card mb-4 shadow-sm p-5">
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Preliminary<br>Interviews</b></text></h2>
+                <div class="card-body">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="btn-group">
+                    <a href="preliminary_interview.php" class="btn btn-outline-warning" style="font-family: Arial">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<?php }
+                else 
+                {
+          ?>
+            <div class="col-md-6 col-lg-4">
+              <div class="card mb-4 shadow-sm p-5">
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Preliminary<br>Interviews</b></text></h2>
+                <div class="card-body">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="btn-group">
+                      <a href="#" class="btn btn-success" style="font-family: Arial">SUBMITTED (LOCKED)</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php
+
+                } 
+
+              }
+          ?>
+
+<!------------------------------------ FINAL INTERVIEW --------------------------------------------------------->
+
+<?php 
+                  
+                $link = mysqli_connect("localhost","root","","tabulation");
+
+                  $sql_status3t = mysqli_query($link,"SELECT * from category where category_name = 'Final_Interview' and id = 6");
+                    for($xad = 0 ; $xad < $num_rowsp4be = mysqli_fetch_array($sql_status3t) ; $xad++ )
+                    {
+
+                      $status = $num_rowsp4be['status'];
+
+                      if($status == 'ONGOING')
+                      {
+              ?>
 
             <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
@@ -133,149 +293,70 @@ if(empty($_SESSION['login_judge']))
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="final_round.php" class="btn btn-outline-warning" style="font-family: OCR A">View</a>
+                    <a href="final_round.php" class="btn btn-outline-warning" style="font-family: Arial">View</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-			    <?php  }    ?>
-          <!--
-                      <?php
-                  
-                $judge = $_SESSION['login_judge'];
-
-                  if ($judge == 'judge1')
-                  {
-
-                     echo " <div class='col-md-6 col-lg-4'>
-                              <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Pristina Regular;font-size: 40px;''><b>Talent Portion</b></text></h2>
-                                <div class='card-body'>
-                                  <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='btn-group'>
-                                      <a href='#' class='btn btn-danger'>Done</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>";
-                  }
-
-                  else if ($judge == 'judge2')
-                  {
-
-                     echo " <div class='col-md-6 col-lg-4'>
-                              <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Forte'>Talent<br>Portion</text></h2>
-                                <div class='card-body'>
-                                  <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='btn-group'>
-                                      <a href='#' class='btn btn-danger'>Done</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>";
-                  } 
-
-
-                  else if ($judge == 'judge3')
-                  {
-
-                     echo " <div class='col-md-6 col-lg-4'>
-                              <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Forte'>Talent<br>Portion</text></h2>
-                                <div class='card-body'>
-                                  <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='btn-group'>
-                                      <a href='#' class='btn btn-danger'>Done</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>";
-                  }
-
-                  else if ($judge == 'judge4')
-                  {
-
-                     echo " <div class='col-md-6 col-lg-4'>
-                              <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Forte'>Talent<br>Portion</text></h2>
-                                <div class='card-body'>
-                                  <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='btn-group'>
-                                      <a href='#' class='btn btn-danger'>Done</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>";
-                  }
-
-                  else if ($judge == 'judge5')
-                  {
-
-                     echo " <div class='col-md-6 col-lg-4'>
-                              <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Forte'>Talent<br>Portion</text></h2>
-                                <div class='card-body'>
-                                  <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='btn-group'>
-                                      <a href='#' class='btn btn-danger'>Done</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>";
+<?php 
                   }
                   else
                   {
-
-                    echo " <div class='col-md-6 col-lg-4'>
-                              <div class='card mb-4 shadow-sm p-5'>
-                                <h2 class='text-center mt-5 mb-0'><text style='font-family:Forte'>Talent<br>Portion</text></h2>
-                                <div class='card-body'>
-                                  <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='btn-group'>
-                                      <a href='#' class='btn btn-outline-warning'>View</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>";
-                  }
-
-            ?>-->
-
-            <!--<div class="col-md-6 col-lg-4">
+?>
+          <div class="col-md-6 col-lg-4">
               <div class="card mb-4 shadow-sm p-5">
-                <h2 class="text-center mt-5 mb-0"><text style="font-family:Forte">Advocacy</text><br><br></h2>
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Final<br> Interviews</b></text><br></h2>
                 <div class="card-body">
                   <div class="d-flex justify-content-center align-items-center">
-                    <div class="btn-group">-->
-                    <!--<a href="advocacy.php" class="btn btn-outline-warning">View</a>-->
-                    <!--<a href="#" class="btn btn-danger" style="font-family: OCR A">View</a>
+                    <div class="btn-group">
+                      <a href="#" class="btn btn-success" style="font-family: Arial">SUBMITTED (LOCKED)</a>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>-->
+            </div>
+
+<?php
+
+
+                  }
+            }
+
+?>
+
+
+			    <?php  }    ?>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="card mb-4 shadow-sm p-5">
+                <h2 class="text-center mt-5 mb-0"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Talent<br>Portion</b></text></h2>
+                <div class="card-body">
+                   <!--<div class="d-flex justify-content-center align-items-center ">
+                     <a href="talent_male_1.php" class="btn btn-outline-warning" style="font-family: Arial">&nbsp;Male&nbsp;</a>&nbsp;
+                     <a href="talent_female_1.php"  class="btn btn-outline-warning" style="font-family: Arial">Female</a>
+                  </div>-->
+                  <div class="d-flex justify-content-center align-items-center ">
+                    <button  class="btn btn-success" style="font-family: Arial">SUBMITTED (LOCKED)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             
 			  <div class="col-md-6 col-lg-4 " >
               <div class="card mb-4 shadow-sm p-5" style="background-color:">
                 <h2 class="text-center mt-5 mb-0 text-dark"><text style="font-family:Pristina Regular;font-size: 40px;"><b>Your Score Card</b></text></h2>
-                <div class="card-body ">
+                <div class="card-body "><br><br>
                   <div class="d-flex justify-content-center align-items-center">
                     <div class="btn-group">
-                    <a href="judge_score_card.php" class="btn btn-success" style="color:white;font-family: OCR A">View</a>
+                    <a href="judge_score_card.php" class="btn btn-success" style="color:white;font-family: Arial">View</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -302,7 +383,7 @@ if(empty($_SESSION['login_judge']))
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 			
-				 <button class = "btn btn-danger" name="logout">Logout</button>
+				 <button class = "btn btn-success" name="logout">Logout</button>
 			  </form>
            
           </div>
@@ -314,19 +395,6 @@ if(empty($_SESSION['login_judge']))
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="assets/js/chartist.min.js"></script>
-<!--  Dynamic Elements plugin -->
-<script src="assets/js/arrive.min.js"></script>
-<!--  PerfectScrollbar Library -->
-<script src="assets/js/perfect-scrollbar.jquery.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="assets/js/bootstrap-notify.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Material Dashboard javascript methods -->
-<script src="assets/js/material-dashboard.js?v=1.2.0"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/js/demo.js"></script>
     
 <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
@@ -336,13 +404,7 @@ if(empty($_SESSION['login_judge']))
    
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
    
-  
-    
-    <script src="js/sb-admin.min.js"></script>
-    
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <script src="js/sb-admin-datatables.min.js"></script>
+ 
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
@@ -362,7 +424,7 @@ if(empty($_SESSION['login_judge']))
               <a href="talent_night_stagePresent.php"><button class="btn btn-secondary" type="button">Male</button></a>
             </div>
             <div class="modal-footer">
-              <a href="categories.php"><button class="btn btn-danger" type="button">Back to Categories</button></a>
+              <a href="categories.php"><button class="btn btn-success" type="button">Back to Categories</button></a>
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Okay</button>
             </div>
           </div>

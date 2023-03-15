@@ -11,9 +11,11 @@ if(!empty($_SESSION['login_judge']))
 }
 if(isset($_POST['login']))
 {
-  $username= $_POST['username'];
-  $password = sha1($_POST['password']);
+  $user= $_POST['username'];
+  $pass = sha1($_POST['password']);
   
+    $username = strip_tags(mysqli_real_escape_string($link,trim($user)));
+    $password = strip_tags(mysqli_real_escape_string($link,trim($pass)));
 
       $query_judge = mysqli_query($link,"SELECT *FROM login WHERE username = '".$username."' AND password='".$password."' AND account_type = 'judge' ");
       $query_admin = mysqli_query($link,"SELECT *FROM login WHERE username = '".$username."' AND password='".$password."' AND account_type = 'admin'  ");
@@ -31,7 +33,7 @@ if(isset($_POST['login']))
       {
         $_SESSION['login_admin'] = $_POST['username'];
         $_SESSION['login_session'] = "login";
-        header('location:result_talent_night.php');
+        header('location:settings.php');
       }
       else
       {
@@ -63,9 +65,8 @@ if(isset($_POST['login']))
 
     <!-- Custom styles for this template -->
     <link href="album.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Livvic&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+    <link rel="stylesheet" href="js/bootstrap-icons.css" />
     <style type="text/css">
         ::placeholder {
           color: black !important;
@@ -148,7 +149,7 @@ if(isset($_POST['login']))
                   <label for="inputPassword" style="color:black;font-family: 'Livvic', sans-serif;">Password</label>
                   <input type="password" id="password" class="form-control red" placeholder="" required name="password"/>
 
-                <i class="bi bi-eye-slash field-icon" id="togglePassword"></i>
+                <i class="fa fa-eye-slash field-icon" id="togglePassword"></i>
                     </div><br>
                   <button class="btn btn-success btn-lg btn-block mb-4 mt-4" type="submit" name = "login" style="color:white;font-family: 'Fjalla One', cursive;">SIGN IN</button>
                   <hr class="my-1">
@@ -176,7 +177,7 @@ if(isset($_POST['login']))
             password.setAttribute("type", type);
             
             // toggle the icon
-            this.classList.toggle("bi-eye");
+            this.classList.toggle("fa-eye");
         });
 
 

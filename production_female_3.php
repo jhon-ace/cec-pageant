@@ -780,7 +780,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
     <link rel="icon" href="img/final_logo.png" type="image/x-icon">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <title>Production | Male No. 1</title>
+    <title>Production | Female No. 3</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -922,7 +922,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
     <main role="main">
       <section class="jumbotron jumbotron-fluid text-left py-4">
         <div class="container">
-		      <h3 class="jumbotron-heading">Production Number (100%) | <text style='color:red;font-family: Arial Rounded MT;'>MALE NO. 1 - URSA</text></h3>
+		      <h3 class="jumbotron-heading">Production Number (100%) | <text style='color:red;font-family: Arial Rounded MT;'>FEMALE NO. 3 - CENTAURUS</text></h3>
 		        <p>CRITERIA:
 							<ul>
 								<li > Poise and Bearing (30pts)</li>
@@ -932,18 +932,18 @@ if(isset($_POST['submit_score_production_audience_impact']))
 							</ul>
 							<ul style="list-style-type: none;font-size: 18px !important;">
 								<li style="display: inline;padding-right: 15px;font-family: Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Candidate <b>MALE:</b></li>
-								<li class="active" style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_1.php"><b># 1</b></a></li>
+								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_1.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 1</b></a></li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_2.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 2</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_3.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 3</b></a></li>
+								<li   style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_3.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 3</b></a></li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_4.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 4</b></a></li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_5.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 5</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_6.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 6</b></a></li>
+								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_6.php"  style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 6</b></a></li>
 							</ul>
 							<ul style="list-style-type: none;font-size: 18px !important;">
 								<li style="display: inline;padding-right: 15px;font-family: Arial">Candidate FEMALE:</li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_1.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 1</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_2.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 2</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_3.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 3</b></a></li>
+								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_2.php"  style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 2</b></a></li>
+								<li   class="active" style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_3.php"><b># 3</b></a></li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_4.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 4</b></a></li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_5.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 5</b></a></li>
 								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_6.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 6</b></a></li>
@@ -960,7 +960,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and candidate_no = 3 ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1001,7 +1001,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
 													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> POISE AND BEARING (30pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Female' AND name_judge = '$judge' and id_contestant = 3");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
@@ -1147,7 +1147,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and candidate_no = 3 ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1188,7 +1188,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
 													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> MASTERY (30pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Female' AND name_judge = '$judge' and id_contestant = 3");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
@@ -1336,7 +1336,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and candidate_no = 3 ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1377,7 +1377,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
 													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> SELF INTRODUCTION (30pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender= 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender= 'Female' AND name_judge = '$judge' and id_contestant = 3");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
@@ -1503,7 +1503,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and candidate_no = 3 ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1544,7 +1544,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
 													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> AUDIENCE IMPACT (10pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Female' AND name_judge = '$judge' and id_contestant = 3");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{

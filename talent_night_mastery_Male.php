@@ -407,7 +407,7 @@ if(isset($_POST['submit_score']))
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
 													<h5 class='mt-0' style='font-family:OCR A'>Candidate <text style='color:red'><b><text style='font-family: arial'># </tex>$sequence_no</b></text> - <text style='color:red'><b>$team</b></text></h5>
-													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>";
+													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p><p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> MASTERY (40pts) <text style='color:red'>*</text></b></p>";
 							
 													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' AND name_judge = '$judge'");
 													
@@ -601,7 +601,6 @@ if(isset($_POST['submit_score']))
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="assets/js/material-dashboard.js?v=1.2.0"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->

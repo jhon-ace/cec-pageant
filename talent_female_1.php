@@ -13,33 +13,19 @@ if(empty($_SESSION['login_judge']))
 {
 	header('location:index.php');
 }
-
-//if the status is done, dili na sila maka edit through URL
-
-$sqlhj = mysqli_query($link,"SELECT * FROM category where category_name = 'Production'");
-for($ad = 0 ; $ad < $num_rows = mysqli_fetch_array($sqlhj) ; $ad++ )
-{
-	$status = $num_rows['status'];
-
-	if($status == 'DONE')
-	{
-		header('location:categories.php');
-	}
-}
-
-///////////////////////////////////////////////////
-
-
-if(isset($_POST['submit_score_poiseandbearing']))
+if(isset($_POST['submit_score_stagePresent']))
 {
 	$judge_session = $_SESSION['login_judge'];
 	$score = $_POST['score'];
 	$judge = $_POST['judge'];
 	$name_contestant = $_POST['name_contestant'];
-	$id_contestant = $_POST['submit_score_poiseandbearing'];
+	$id_contestant = $_POST['submit_score_stagePresent'];
 
+
+	if($score <101)
+	{
 	
-		$update = "UPDATE score_card SET production_PoiseandBearing = '$score',production_PoiseandBearing_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
+		$update = "UPDATE score_card SET talent_portion_stagePresent = '$score',talent_portion_stagePresent_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
 		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, 
@@ -47,26 +33,26 @@ if(isset($_POST['submit_score_poiseandbearing']))
 			SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', 
 			SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', 
 			SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact', 
-			SUM(production_PoiseandBearing)/8 as 'production_PoiseandBearing', 
-			SUM(production_mastery)/8 as 'production_mastery', 
-			SUM(production_self_introduction)/8 as 'production_self_introduction', 
-			SUM(production_audience_impact)/8 as 'production_audience_impact',
-			SUM(sports_wear_figure)/8 as 'sports_wear_figure', 
-			SUM(sports_wear_sports_identity)/8 as 'sports_wear_sports_identity', 
-			SUM(sports_wear_PoiseandBearing)/8 as 'sports_wear_PoiseandBearing', 
-			SUM(sports_wear_overall_impact)/8 as 'sports_wear_overall_impact', 
-			SUM(preliminary_interview_WitandContext)/8 as 'preliminary_interview_WitandContext', 
-			SUM(preliminary_interview_stagePresent)/8 as 'preliminary_interview_stagePresent', 
-			SUM(preliminary_interview_ProjectionandDelivery)/8 as 'preliminary_interview_ProjectionandDelivery', 
-			SUM(preliminary_interview_overall_impact)/8 as 'preliminary_interview_overall_impact',
-			SUM(formal_wear_DesignandFitting)/8 as 'formal_wear_DesignandFitting', 
-			SUM(formal_wear_stageDeportment)/8 as 'formal_wear_stageDeportment', 
-			SUM(formal_wear_PoiseandBearing)/8 as 'formal_wear_PoiseandBearing', 
-			SUM(formal_wear_overall_impact)/8 as 'formal_wear_overall_impact',
-			SUM(final_interview_WitandContext)/8 as 'final_interview_WitandContext', 
-			SUM(final_interview_stagePresence)/8 as 'final_interview_stagePresence', 
-			SUM(final_interview_ProjectionandDelivery)/8 as 'final_interview_ProjectionandDelivery', 
-			SUM(final_interview_overall_impact)/8 as 'final_interview_overall_impact'
+			SUM(production_PoiseandBearing)/7 as 'production_PoiseandBearing', 
+			SUM(production_mastery)/7 as 'production_mastery', 
+			SUM(production_self_introduction)/7 as 'production_self_introduction', 
+			SUM(production_audience_impact)/7 as 'production_audience_impact',
+			SUM(sports_wear_figure)/7 as 'sports_wear_figure', 
+			SUM(sports_wear_sports_identity)/7 as 'sports_wear_sports_identity', 
+			SUM(sports_wear_PoiseandBearing)/7 as 'sports_wear_PoiseandBearing', 
+			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact', 
+			SUM(preliminary_interview_WitandContext)/7 as 'preliminary_interview_WitandContext', 
+			SUM(preliminary_interview_stagePresent)/7 as 'preliminary_interview_stagePresent', 
+			SUM(preliminary_interview_ProjectionandDelivery)/7 as 'preliminary_interview_ProjectionandDelivery', 
+			SUM(preliminary_interview_overall_impact)/7 as 'preliminary_interview_overall_impact',
+			SUM(formal_wear_DesignandFitting)/7 as 'formal_wear_DesignandFitting', 
+			SUM(formal_wear_stageDeportment)/7 as 'formal_wear_stageDeportment', 
+			SUM(formal_wear_PoiseandBearing)/7 as 'formal_wear_PoiseandBearing', 
+			SUM(formal_wear_overall_impact)/7 as 'formal_wear_overall_impact',
+			SUM(final_interview_WitandContext)/7 as 'final_interview_WitandContext', 
+			SUM(final_interview_stagePresence)/7 as 'final_interview_stagePresence', 
+			SUM(final_interview_ProjectionandDelivery)/7 as 'final_interview_ProjectionandDelivery', 
+			SUM(final_interview_overall_impact)/7 as 'final_interview_overall_impact'
 			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
@@ -175,14 +161,18 @@ if(isset($_POST['submit_score_poiseandbearing']))
 
 			}
 //x
-				$sql_production_PoiseandBearing_updateByJudgeName = "UPDATE production SET poiseandbearing = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
-				mysqli_query($link,$sql_production_PoiseandBearing_updateByJudgeName);
+				$sql_talent_stagePresent_updateByJudgeName = "UPDATE talent_portion SET stage_present = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
+				mysqli_query($link,$sql_talent_stagePresent_updateByJudgeName);
 			
 	}
+	else
+	{
+		$message = "Input is greater than 100!";
+      echo "<script type='text/javascript'>alert('$message'); window.location.assign('sports_wear.php')</script>";
+	}
+}
 
-
-
-			if(isset($_POST['submit_edit_score_poiseandbearing']))
+			if(isset($_POST['submit_edit_score_stagePresent']))
 			{
 
 				$judge_session = $_SESSION['login_judge'];
@@ -191,14 +181,20 @@ if(isset($_POST['submit_score_poiseandbearing']))
 				$edit_name_contestant = $_POST['edit_name_contestant'];
 				$production_PoiseandBearing = $_POST['production_PoiseandBearing'];
 
-
-						$updateScoreCard = "UPDATE score_card SET production_PoiseandBearing = '$edit_scoreInput',production_PoiseandBearing_vote = '1', production_PoiseandBearing_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
+					if($production_PoiseandBearing == 0)
+					{
+						$updateScoreCard = "UPDATE score_card SET talent_portion_stagePresent = '$edit_scoreInput',talent_portion_stagePresent_vote = '1', talent_portion_stagePresent_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
 								mysqli_query($link,$updateScoreCard);
 		
-						$sql_production_PoiseandBearing_editScore = "UPDATE production SET poiseandbearing = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
+						$sql_production_PoiseandBearing_editScore = "UPDATE talent_portion SET stage_present = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
 							mysqli_query($link,$sql_production_PoiseandBearing_editScore);
 
-					
+					}
+					else
+					{
+
+						echo '<script>alert("You can\'t update twice");window.location.assign("sports_wear_relevance.php")</script>';
+				}
 			}
 
 
@@ -240,8 +236,11 @@ if(isset($_POST['submit_score_production_mastery']))
 	$name_contestant = $_POST['name_contestant'];
 	$id_contestant = $_POST['submit_score_production_mastery'];
 
+
+	if($score <101)
+	{
 	
-		$update = "UPDATE score_card SET production_mastery = '$score',production_mastery_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
+		$update = "UPDATE score_card SET talent_portion_mastery = '$score',talent_portion_mastery_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
 		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, 
@@ -249,26 +248,26 @@ if(isset($_POST['submit_score_production_mastery']))
 			SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', 
 			SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', 
 			SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact', 
-			SUM(production_PoiseandBearing)/8 as 'production_PoiseandBearing', 
-			SUM(production_mastery)/8 as 'production_mastery', 
-			SUM(production_self_introduction)/8 as 'production_self_introduction', 
-			SUM(production_audience_impact)/8 as 'production_audience_impact',
-			SUM(sports_wear_figure)/8 as 'sports_wear_figure', 
-			SUM(sports_wear_sports_identity)/8 as 'sports_wear_sports_identity', 
-			SUM(sports_wear_PoiseandBearing)/8 as 'sports_wear_PoiseandBearing', 
-			SUM(sports_wear_overall_impact)/8 as 'sports_wear_overall_impact', 
-			SUM(preliminary_interview_WitandContext)/8 as 'preliminary_interview_WitandContext', 
-			SUM(preliminary_interview_stagePresent)/8 as 'preliminary_interview_stagePresent', 
-			SUM(preliminary_interview_ProjectionandDelivery)/8 as 'preliminary_interview_ProjectionandDelivery', 
-			SUM(preliminary_interview_overall_impact)/8 as 'preliminary_interview_overall_impact',
-			SUM(formal_wear_DesignandFitting)/8 as 'formal_wear_DesignandFitting', 
-			SUM(formal_wear_stageDeportment)/8 as 'formal_wear_stageDeportment', 
-			SUM(formal_wear_PoiseandBearing)/8 as 'formal_wear_PoiseandBearing', 
-			SUM(formal_wear_overall_impact)/8 as 'formal_wear_overall_impact',
-			SUM(final_interview_WitandContext)/8 as 'final_interview_WitandContext', 
-			SUM(final_interview_stagePresence)/8 as 'final_interview_stagePresence', 
-			SUM(final_interview_ProjectionandDelivery)/8 as 'final_interview_ProjectionandDelivery', 
-			SUM(final_interview_overall_impact)/8 as 'final_interview_overall_impact'
+			SUM(production_PoiseandBearing)/7 as 'production_PoiseandBearing', 
+			SUM(production_mastery)/7 as 'production_mastery', 
+			SUM(production_self_introduction)/7 as 'production_self_introduction', 
+			SUM(production_audience_impact)/7 as 'production_audience_impact',
+			SUM(sports_wear_figure)/7 as 'sports_wear_figure', 
+			SUM(sports_wear_sports_identity)/7 as 'sports_wear_sports_identity', 
+			SUM(sports_wear_PoiseandBearing)/7 as 'sports_wear_PoiseandBearing', 
+			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact', 
+			SUM(preliminary_interview_WitandContext)/7 as 'preliminary_interview_WitandContext', 
+			SUM(preliminary_interview_stagePresent)/7 as 'preliminary_interview_stagePresent', 
+			SUM(preliminary_interview_ProjectionandDelivery)/7 as 'preliminary_interview_ProjectionandDelivery', 
+			SUM(preliminary_interview_overall_impact)/7 as 'preliminary_interview_overall_impact',
+			SUM(formal_wear_DesignandFitting)/7 as 'formal_wear_DesignandFitting', 
+			SUM(formal_wear_stageDeportment)/7 as 'formal_wear_stageDeportment', 
+			SUM(formal_wear_PoiseandBearing)/7 as 'formal_wear_PoiseandBearing', 
+			SUM(formal_wear_overall_impact)/7 as 'formal_wear_overall_impact',
+			SUM(final_interview_WitandContext)/7 as 'final_interview_WitandContext', 
+			SUM(final_interview_stagePresence)/7 as 'final_interview_stagePresence', 
+			SUM(final_interview_ProjectionandDelivery)/7 as 'final_interview_ProjectionandDelivery', 
+			SUM(final_interview_overall_impact)/7 as 'final_interview_overall_impact'
 			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
@@ -377,12 +376,16 @@ if(isset($_POST['submit_score_production_mastery']))
 
 			}
 //x
-				$sql_production_mastery_updateByJudgeName = "UPDATE production SET mastery = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
+				$sql_production_mastery_updateByJudgeName = "UPDATE talent_portion SET mastery = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
 				mysqli_query($link,$sql_production_mastery_updateByJudgeName);
 			
 	}
-
-
+	else
+	{
+		$message = "Input is greater than 100!";
+      echo "<script type='text/javascript'>alert('$message'); window.location.assign('sports_wear.php')</script>";
+	}
+}
 
 			if(isset($_POST['submit_edit_score_mastery']))
 			{
@@ -393,12 +396,20 @@ if(isset($_POST['submit_score_production_mastery']))
 				$edit_name_contestant = $_POST['edit_name_contestant'];
 				$production_mastery = $_POST['production_mastery'];
 
-						$updateScoreCard = "UPDATE score_card SET production_mastery = '$edit_scoreInput',production_mastery_vote = '1', production_mastery_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
+					if($production_mastery== 0)
+					{
+						$updateScoreCard = "UPDATE score_card SET talent_portion_mastery = '$edit_scoreInput',talent_portion_mastery_vote = '1', talent_portion_mastery_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
 								mysqli_query($link,$updateScoreCard);
 		
-						$sql_production_mastery_editScore = "UPDATE production SET mastery = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
+						$sql_production_mastery_editScore = "UPDATE talent_portion SET mastery = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
 							mysqli_query($link,$sql_production_mastery_editScore);
 
+					}
+					else
+					{
+
+						echo '<script>alert("You can\'t update twice");window.location.assign("sports_wear_relevance.php")</script>';
+				}
 			}
 
 
@@ -413,7 +424,7 @@ if(isset($_POST['submit_score_production_mastery']))
 
 
 
-///////////////////////                  SELF INTRODUCTION                                     ////////////////////
+///////////////////////                  UNIQUENESS                                    ////////////////////
 
 
 
@@ -425,8 +436,11 @@ if(isset($_POST['submit_score_production_self_introduction']))
 	$name_contestant = $_POST['name_contestant'];
 	$id_contestant = $_POST['submit_score_production_self_introduction'];
 
+
+	if($score <101)
+	{
 	
-		$update = "UPDATE score_card SET production_self_introduction = '$score',production_self_introduction_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
+		$update = "UPDATE score_card SET talent_portion_uniqueness = '$score',talent_portion_uniqueness_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
 		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, 
@@ -434,26 +448,26 @@ if(isset($_POST['submit_score_production_self_introduction']))
 			SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', 
 			SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', 
 			SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact', 
-			SUM(production_PoiseandBearing)/8 as 'production_PoiseandBearing', 
-			SUM(production_mastery)/8 as 'production_mastery', 
-			SUM(production_self_introduction)/8 as 'production_self_introduction', 
-			SUM(production_audience_impact)/8 as 'production_audience_impact',
-			SUM(sports_wear_figure)/8 as 'sports_wear_figure', 
-			SUM(sports_wear_sports_identity)/8 as 'sports_wear_sports_identity', 
-			SUM(sports_wear_PoiseandBearing)/8 as 'sports_wear_PoiseandBearing', 
-			SUM(sports_wear_overall_impact)/8 as 'sports_wear_overall_impact', 
-			SUM(preliminary_interview_WitandContext)/8 as 'preliminary_interview_WitandContext', 
-			SUM(preliminary_interview_stagePresent)/8 as 'preliminary_interview_stagePresent', 
-			SUM(preliminary_interview_ProjectionandDelivery)/8 as 'preliminary_interview_ProjectionandDelivery', 
-			SUM(preliminary_interview_overall_impact)/8 as 'preliminary_interview_overall_impact',
-			SUM(formal_wear_DesignandFitting)/8 as 'formal_wear_DesignandFitting', 
-			SUM(formal_wear_stageDeportment)/8 as 'formal_wear_stageDeportment', 
-			SUM(formal_wear_PoiseandBearing)/8 as 'formal_wear_PoiseandBearing', 
-			SUM(formal_wear_overall_impact)/8 as 'formal_wear_overall_impact',
-			SUM(final_interview_WitandContext)/8 as 'final_interview_WitandContext', 
-			SUM(final_interview_stagePresence)/8 as 'final_interview_stagePresence', 
-			SUM(final_interview_ProjectionandDelivery)/8 as 'final_interview_ProjectionandDelivery', 
-			SUM(final_interview_overall_impact)/8 as 'final_interview_overall_impact'
+			SUM(production_PoiseandBearing)/7 as 'production_PoiseandBearing', 
+			SUM(production_mastery)/7 as 'production_mastery', 
+			SUM(production_self_introduction)/7 as 'production_self_introduction', 
+			SUM(production_audience_impact)/7 as 'production_audience_impact',
+			SUM(sports_wear_figure)/7 as 'sports_wear_figure', 
+			SUM(sports_wear_sports_identity)/7 as 'sports_wear_sports_identity', 
+			SUM(sports_wear_PoiseandBearing)/7 as 'sports_wear_PoiseandBearing', 
+			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact', 
+			SUM(preliminary_interview_WitandContext)/7 as 'preliminary_interview_WitandContext', 
+			SUM(preliminary_interview_stagePresent)/7 as 'preliminary_interview_stagePresent', 
+			SUM(preliminary_interview_ProjectionandDelivery)/7 as 'preliminary_interview_ProjectionandDelivery', 
+			SUM(preliminary_interview_overall_impact)/7 as 'preliminary_interview_overall_impact',
+			SUM(formal_wear_DesignandFitting)/7 as 'formal_wear_DesignandFitting', 
+			SUM(formal_wear_stageDeportment)/7 as 'formal_wear_stageDeportment', 
+			SUM(formal_wear_PoiseandBearing)/7 as 'formal_wear_PoiseandBearing', 
+			SUM(formal_wear_overall_impact)/7 as 'formal_wear_overall_impact',
+			SUM(final_interview_WitandContext)/7 as 'final_interview_WitandContext', 
+			SUM(final_interview_stagePresence)/7 as 'final_interview_stagePresence', 
+			SUM(final_interview_ProjectionandDelivery)/7 as 'final_interview_ProjectionandDelivery', 
+			SUM(final_interview_overall_impact)/7 as 'final_interview_overall_impact'
 			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
@@ -562,11 +576,16 @@ if(isset($_POST['submit_score_production_self_introduction']))
 
 			}
 //x
-				$sql_production_self_introduction_updateByJudgeName = "UPDATE production SET self_introduction = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
+				$sql_production_self_introduction_updateByJudgeName = "UPDATE talent_portion SET uniqueness = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
 				mysqli_query($link,$sql_production_self_introduction_updateByJudgeName);
 			
 	}
-
+	else
+	{
+		$message = "Input is greater than 100!";
+      echo "<script type='text/javascript'>alert('$message'); window.location.assign('sports_wear.php')</script>";
+	}
+}
 
 			if(isset($_POST['submit_edit_score_self_introduction']))
 			{
@@ -577,11 +596,20 @@ if(isset($_POST['submit_score_production_self_introduction']))
 				$edit_name_contestant = $_POST['edit_name_contestant'];
 				$production_self_introduction = $_POST['production_self_introduction'];
 
-						$updateScoreCard = "UPDATE score_card SET production_self_introduction = '$edit_scoreInput',production_self_introduction_vote = '1', production_self_introduction_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
+					if($production_self_introduction== 0)
+					{
+						$updateScoreCard = "UPDATE score_card SET talent_portion_uniqueness = '$edit_scoreInput',talent_portion_uniqueness_vote = '1', talent_portion_uniqueness_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
 								mysqli_query($link,$updateScoreCard);
 		
-						$sql_production_self_introduction_editScore = "UPDATE production SET self_introduction = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
+						$sql_production_self_introduction_editScore = "UPDATE talent_portion SET uniqueness = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
 							mysqli_query($link,$sql_production_self_introduction_editScore);
+
+					}
+					else
+					{
+
+						echo '<script>alert("You can\'t update twice");window.location.assign("sports_wear_relevance.php")</script>';
+				}
 			}
 
 
@@ -605,8 +633,11 @@ if(isset($_POST['submit_score_production_audience_impact']))
 	$name_contestant = $_POST['name_contestant'];
 	$id_contestant = $_POST['submit_score_production_audience_impact'];
 
+
+	if($score <101)
+	{
 	
-		$update = "UPDATE score_card SET production_audience_impact = '$score',production_audience_impact_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
+		$update = "UPDATE score_card SET talent_portion_audience_impact = '$score',talent_portion_audience_impact_vote = '1' WHERE name_contestant = '$name_contestant' AND name_judge = '$judge'";
 		mysqli_query($link,$update);
 		
 		$sql_grand_total = mysqli_query($link,"SELECT  id_contestant, name_judge, 
@@ -614,26 +645,26 @@ if(isset($_POST['submit_score_production_audience_impact']))
 			SUM(talent_portion_mastery)/3 as 'talent_portion_mastery', 
 			SUM(talent_portion_uniqueness)/3 as 'talent_portion_uniqueness', 
 			SUM(talent_portion_audience_impact)/3 as 'talent_portion_audience_impact', 
-			SUM(production_PoiseandBearing)/8 as 'production_PoiseandBearing', 
-			SUM(production_mastery)/8 as 'production_mastery', 
-			SUM(production_self_introduction)/8 as 'production_self_introduction', 
-			SUM(production_audience_impact)/8 as 'production_audience_impact',
-			SUM(sports_wear_figure)/8 as 'sports_wear_figure', 
-			SUM(sports_wear_sports_identity)/8 as 'sports_wear_sports_identity', 
-			SUM(sports_wear_PoiseandBearing)/8 as 'sports_wear_PoiseandBearing', 
-			SUM(sports_wear_overall_impact)/8 as 'sports_wear_overall_impact', 
-			SUM(preliminary_interview_WitandContext)/8 as 'preliminary_interview_WitandContext', 
-			SUM(preliminary_interview_stagePresent)/8 as 'preliminary_interview_stagePresent', 
-			SUM(preliminary_interview_ProjectionandDelivery)/8 as 'preliminary_interview_ProjectionandDelivery', 
-			SUM(preliminary_interview_overall_impact)/8 as 'preliminary_interview_overall_impact',
-			SUM(formal_wear_DesignandFitting)/8 as 'formal_wear_DesignandFitting', 
-			SUM(formal_wear_stageDeportment)/8 as 'formal_wear_stageDeportment', 
-			SUM(formal_wear_PoiseandBearing)/8 as 'formal_wear_PoiseandBearing', 
-			SUM(formal_wear_overall_impact)/8 as 'formal_wear_overall_impact',
-			SUM(final_interview_WitandContext)/8 as 'final_interview_WitandContext', 
-			SUM(final_interview_stagePresence)/8 as 'final_interview_stagePresence', 
-			SUM(final_interview_ProjectionandDelivery)/8 as 'final_interview_ProjectionandDelivery', 
-			SUM(final_interview_overall_impact)/8 as 'final_interview_overall_impact'
+			SUM(production_PoiseandBearing)/7 as 'production_PoiseandBearing', 
+			SUM(production_mastery)/7 as 'production_mastery', 
+			SUM(production_self_introduction)/7 as 'production_self_introduction', 
+			SUM(production_audience_impact)/7 as 'production_audience_impact',
+			SUM(sports_wear_figure)/7 as 'sports_wear_figure', 
+			SUM(sports_wear_sports_identity)/7 as 'sports_wear_sports_identity', 
+			SUM(sports_wear_PoiseandBearing)/7 as 'sports_wear_PoiseandBearing', 
+			SUM(sports_wear_overall_impact)/7 as 'sports_wear_overall_impact', 
+			SUM(preliminary_interview_WitandContext)/7 as 'preliminary_interview_WitandContext', 
+			SUM(preliminary_interview_stagePresent)/7 as 'preliminary_interview_stagePresent', 
+			SUM(preliminary_interview_ProjectionandDelivery)/7 as 'preliminary_interview_ProjectionandDelivery', 
+			SUM(preliminary_interview_overall_impact)/7 as 'preliminary_interview_overall_impact',
+			SUM(formal_wear_DesignandFitting)/7 as 'formal_wear_DesignandFitting', 
+			SUM(formal_wear_stageDeportment)/7 as 'formal_wear_stageDeportment', 
+			SUM(formal_wear_PoiseandBearing)/7 as 'formal_wear_PoiseandBearing', 
+			SUM(formal_wear_overall_impact)/7 as 'formal_wear_overall_impact',
+			SUM(final_interview_WitandContext)/7 as 'final_interview_WitandContext', 
+			SUM(final_interview_stagePresence)/7 as 'final_interview_stagePresence', 
+			SUM(final_interview_ProjectionandDelivery)/7 as 'final_interview_ProjectionandDelivery', 
+			SUM(final_interview_overall_impact)/7 as 'final_interview_overall_impact'
 			FROM score_card WHERE id_contestant = '$id_contestant' AND name_judge = '$judge'");
 					  		
 			for($d = 0 ; $d < $num_rows2 = mysqli_fetch_array($sql_grand_total) ; $d++ )
@@ -742,10 +773,15 @@ if(isset($_POST['submit_score_production_audience_impact']))
 
 			}
 //x
-				$sql_production_audience_impact_updateByJudgeName = "UPDATE production SET audience_impact = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
+				$sql_production_audience_impact_updateByJudgeName = "UPDATE talent_portion SET audience_impact = '$score' WHERE name = '$name_contestant' and name_judge = '$judge_session'";
 				mysqli_query($link,$sql_production_audience_impact_updateByJudgeName);
 			
-	
+	}
+	else
+	{
+		$message = "Input is greater than 100!";
+      echo "<script type='text/javascript'>alert('$message'); window.location.assign('sports_wear.php')</script>";
+	}
 }
 
 			if(isset($_POST['submit_edit_score_audience_impact']))
@@ -757,13 +793,20 @@ if(isset($_POST['submit_score_production_audience_impact']))
 				$edit_name_contestant = $_POST['edit_name_contestant'];
 				$production_audience_impact = $_POST['production_audience_impact'];
 
-				
-						$updateScoreCard = "UPDATE score_card SET production_audience_impact = '$edit_scoreInput',production_audience_impact_vote = '1', production_audience_impact_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
+					if($production_audience_impact== 0)
+					{
+						$updateScoreCard = "UPDATE score_card SET talent_portion_audience_impact = '$edit_scoreInput',talent_portion_audience_impact_vote = '1', talent_portion_audience_impact_edit = 1 WHERE name_contestant = '$edit_name_contestant' AND name_judge = '$edit_judge'";
 								mysqli_query($link,$updateScoreCard);
 		
-						$sql_production_audience_impact_editScore = "UPDATE production SET audience_impact = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
+						$sql_production_audience_impact_editScore = "UPDATE talent_portion SET audience_impact = '$edit_scoreInput' WHERE name = '$edit_name_contestant' and name_judge = '$judge_session'";
 							mysqli_query($link,$sql_production_audience_impact_editScore);
 
+					}
+					else
+					{
+
+						echo '<script>alert("You can\'t update twice");window.location.assign("sports_wear_relevance.php")</script>';
+				}
 			}
 
 
@@ -780,7 +823,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
     <link rel="icon" href="img/final_logo.png" type="image/x-icon">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <title>Production | Male No. 1</title>
+    <title>TALENT | Female No. 1</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -853,7 +896,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-<!--								<?php
+								<?php
 										$link = mysqli_connect("localhost","root","","tabulation");
 											
 											$sql = mysqli_query($link,"SELECT *FROM contestant ORDER BY id_contestant ASC");
@@ -875,7 +918,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 											$link = mysqli_connect("localhost","root","","tabulation");
 
 											$judge = $_SESSION['login_judge'];
-											$sql5 = mysqli_query($link,"SELECT  * from score_card where name_judge = '$judge' and gender = 'Male' and id_contestant = 1 GROUP BY production_audience_impact_vote ORDER BY production_audience_impact_vote DESC LIMIT 1");
+											$sql5 = mysqli_query($link,"SELECT  * from score_card where name_judge = '$judge' and gender = 'Female' and id_contestant = 1 GROUP BY talent_portion_audience_impact_vote ORDER BY talent_portion_audience_impact_vote DESC LIMIT 1");
 							
 												for($b = 0 ; $b < $num_rowst = mysqli_fetch_array($sql5) ; $b++ )
 													{	
@@ -887,12 +930,11 @@ if(isset($_POST['submit_score_production_audience_impact']))
 
 														if($name_judgeD == $judge)
 														{
-															$production_audience_impact_vote = $num_rowst['production_audience_impact_vote'];
+															$talent_portion_audience_impact_vote = $num_rowst['talent_portion_audience_impact_vote'];
 
-																if($production_audience_impact_vote == 0)
+																if($talent_portion_audience_impact_vote == 0)
 																	{
-
-																		
+																		echo "<a href='#'><span class='navbar-brand' href='#''><button class = 'btn btn-outline-info' type='button' data-toggle='modal' data-target='#backtocategories'>Back to Categories</button></span></a>";
 																	}
 																	else
 																	{
@@ -901,8 +943,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 															}
 														}
 								?>
--->
-				<a href='categories.php'><span class='navbar-brand' href='#'><button class = 'btn btn-outline-info' type='button'>Back to Categories</button></span></a>
+
 	        	<span class="navbar-brand" href="#">Logged in as 
 	        		<strong style="color: yellow">
 				  		<?php $judge = $_SESSION['login_judge'];  echo "<span style='text-transform: uppercase'>$judge</span>" ?></strong>
@@ -922,31 +963,67 @@ if(isset($_POST['submit_score_production_audience_impact']))
     <main role="main">
       <section class="jumbotron jumbotron-fluid text-left py-4">
         <div class="container">
-		      <h3 class="jumbotron-heading">Production Number (100%) | <text style='color:red;font-family: Arial Rounded MT;'>MALE NO. 1 - URSA</text></h3>
+		      <h3 class="jumbotron-heading">TALENT PORTION (100%) | FEMALE</h3>
 		        <p>CRITERIA:
 							<ul>
-								<li > Poise and Bearing (30pts)</li>
-								<li>Mastery (30pts)</li>
-								<li>Self-Introduction (30pts)</li>
+								<li>Stage Presents (20pts)</li>
+								<li>Mastery (40pts)</li>
+								<li>Uniqueness (30pts)</li>
 								<li>Audience Impact (10)</li>
 							</ul>
 							<ul style="list-style-type: none;font-size: 18px !important;">
-								<li style="display: inline;padding-right: 15px;font-family: Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Candidate <b>MALE:</b></li>
-								<li class="active" style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_1.php"><b># 1</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_2.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 2</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_3.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 3</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_4.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 4</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_5.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 5</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_male_6.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 6</b></a></li>
-							</ul>
-							<ul style="list-style-type: none;font-size: 18px !important;">
-								<li style="display: inline;padding-right: 15px;font-family: Arial">Candidate FEMALE:</li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_1.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 1</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_2.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 2</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_3.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 3</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_4.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 4</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_5.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 5</b></a></li>
-								<li style="display: inline;padding-right: 15px;font-family: Arial"><a href="production_female_6.php" style="color:black;" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='black'"><b># 6</b></a></li>
+								<li style="display: inline;padding-right: 15px;font-family: Arial">Candidate:</li>
+								<li class="active" style="display: inline;padding-right: 15px;font-family: Arial"><a href="talent_female_1.php"><b># 1</b></a></li>
+						<?php 
+
+										$link = mysqli_connect("localhost","root","","tabulation");
+											
+											$sql = mysqli_query($link,"SELECT *FROM contestant ORDER BY id_contestant ASC");
+											$temp;
+											$num2 = 0;
+											$modal = 0;
+											$judge = $_SESSION['login_judge'];
+											for($a = 0 ; $a < $num_rows = mysqli_fetch_array($sql) ; $a++ )
+											{
+												$id_contestant = $num_rows['id_contestant'];
+												$gender = $num_rows['gender'];
+												$team = $num_rows['team'];
+												$full_name = $num_rows['full_name'];
+												$candidate_no = $num_rows['candidate_no'];
+												$picture = $num_rows['picture'];
+												$modal++;
+											}
+
+											$link = mysqli_connect("localhost","root","","tabulation");
+
+											$judge = $_SESSION['login_judge'];
+											$sql5 = mysqli_query($link,"SELECT  * from score_card where name_judge = '$judge' and gender = 'Female' and id_contestant = 1 GROUP BY talent_portion_audience_impact_vote ORDER BY talent_portion_audience_impact_vote DESC LIMIT 1");
+							
+												for($b = 0 ; $b < $num_rowst = mysqli_fetch_array($sql5) ; $b++ )
+													{	
+														$id_contestant1 = $num_rowst['id_contestant'];
+														$name_judgeD = $num_rowst['name_judge'];
+														$full_name = $num_rowst['name_contestant'];
+														$gender = $num_rowst['gender'];
+
+
+														if($name_judgeD == $judge)
+														{
+															$talent_portion_audience_impact_vote = $num_rowst['talent_portion_audience_impact_vote'];
+
+																if($talent_portion_audience_impact_vote == 0)
+																	{
+																		
+																	}
+																	else
+																	{
+																		echo '<li  style="display: inline;padding-right: 15px"><a class="linkage" href="talent_female_2.php" style="color:black;font-family: Arial"># 2</a></li>';
+								
+																	}
+															}
+														}
+								?>
+								
 							</ul>
 						</p>
         </div>
@@ -960,7 +1037,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and talent_portion_sequenceNo = 1 ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -972,6 +1049,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										$team = $num_rows['team'];
 										$full_name = $num_rows['full_name'];
 										$candidate_no = $num_rows['candidate_no'];
+										$sequence_no = $num_rows['talent_portion_sequenceNo'];
 										$picture = $num_rows['picture'];
 										$modal++;
 										if($gender == "Male")
@@ -985,7 +1063,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 									
 										echo "
 										<div class='media-body'>
-										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='235px' alt='Generic placeholder image'>
+										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='320px' alt='Generic placeholder image'>
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
@@ -993,27 +1071,27 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<text style='color:red'>
 														<b>
 															<text style='font-family: arial'># 
-																$candidate_no
+																$sequence_no
 															</text>
 														</b>
 													 - <b>$team</b></h5>
 													</text>
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
-													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> POISE AND BEARING (30pts) <text style='color:red'>*</text></b></p>";
+													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> Stage Present (20pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Female' AND name_judge = '$judge' and id_contestant = 1");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
 														$id_contestant1 = $num_rows1['id_contestant'];
 														$name_judge = $num_rows1['name_judge'];
-														$production_PoiseandBearing = $num_rows1['production_PoiseandBearing'];
+														$talent_portion_stagePresent = $num_rows1['talent_portion_stagePresent'];
 														
 														if($name_judge == $judge)
 														{
-															$production_PoiseandBearing_edit = $num_rows1['production_PoiseandBearing_edit'];
-															$production_PoiseandBearing_vote = $num_rows1['production_PoiseandBearing_vote'];
-															if($production_PoiseandBearing_vote == 0)
+															$talent_portion_stagePresent_edit = $num_rows1['talent_portion_stagePresent_edit'];
+															$talent_portion_stagePresent_vote = $num_rows1['talent_portion_stagePresent_vote'];
+															if($talent_portion_stagePresent_vote == 0)
 															{
 													echo "
 
@@ -1022,7 +1100,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 
 															<div class='input-group mb-3'>
 
-															  <input type='number' min='1' max = '30' class='form-control' placeholder='Example Score: 30' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
+															  <input type='number' min='1' max = '20' class='form-control' placeholder='Example Score: 20' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
 															  <input type = 'hidden' name ='judge' value='$judge'>
 															  <input type = 'hidden' name ='name_contestant' value='$full_name'>
 																  <div class='input-group-append'>
@@ -1045,7 +1123,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 														<div class='modal-footer'>
 															<button class='btn btn-secondary' type='button' data-dismiss='modal'>Cancel</button>
 															
-																<button class = 'btn btn-danger' name = 'submit_score_poiseandbearing' id='button-addon2'
+																<button class = 'btn btn-danger' name = 'submit_score_stagePresent' id='button-addon2'
 																										value = '$id_contestant'>Submit</button>
 															
 														
@@ -1065,14 +1143,15 @@ if(isset($_POST['submit_score_production_audience_impact']))
 												<table>
 													<tr>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$production_PoiseandBearing</td>
+														<td style='display:none'>$talent_portion_stagePresent</td>
 														<td style='display:none'>$judge</td>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$candidate_no</td>
+														<td style='display:none'>$sequence_no</td>
 														<td style='display:none'>$team</td>
-														<td style='display:none'>$production_PoiseandBearing_edit</td>";
+														<td style='display:none'>$talent_portion_stagePresent_edit</td>";
 
-
+														if($talent_portion_stagePresent_edit == 0)
+													{
 
 											echo "
 
@@ -1080,13 +1159,23 @@ if(isset($_POST['submit_score_production_audience_impact']))
 															<center>
 
 																<span style = 'color:red;font-family:Calibri'>Your score has been recorded for this contestant!</span><br>
-																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $production_PoiseandBearing</text></span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $talent_portion_stagePresent</text></span><br>
 														  <a href='' class='editScore_production_poiseandbearing' data-toggle='modal' data-target='#editScoreModalPoiseandbearing' style='text-decoration:none;color: black'><span class='btn my-2 btn-outline-secondary'><i class='fa fa-pencil-square-o'> <text style='font-family:Century Gothic'>Edit Score</text></i></span></a>
 															</center>
 														</td>
 													";
-
-
+													}
+													else
+													{
+											echo "
+														<td>
+															<center>
+																<span style = 'color:red;font-family:Calibri'>Your updated score has already been recorded for this contestant!</span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $talent_portion_stagePresent</text></span><br>
+															</center>
+														</td>
+													";
+													}
 
 												echo "
 													</tr>
@@ -1147,7 +1236,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and talent_portion_sequenceNo = 1 ORDER BY candidate_no ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1159,6 +1248,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										$team = $num_rows['team'];
 										$full_name = $num_rows['full_name'];
 										$candidate_no = $num_rows['candidate_no'];
+										$sequence_no = $num_rows['talent_portion_sequenceNo'];
 										$picture = $num_rows['picture'];
 										$modal++;
 										if($gender == "Male")
@@ -1172,7 +1262,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 									
 										echo "
 										<div class='media-body'>
-										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='235px' alt='Generic placeholder image'>
+										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='320px' alt='Generic placeholder image'>
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
@@ -1180,26 +1270,26 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<text style='color:red'>
 														<b>
 															<text style='font-family: arial'># 
-																$candidate_no
+																$sequence_no
 															</text>
 														</b>
 													 - <b>$team</b></h5>
 													</text>
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
-													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> MASTERY (30pts) <text style='color:red'>*</text></b></p>";
+													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> MASTERY (40pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Female' AND name_judge = '$judge' and id_contestant = 1");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
 														$id_contestant1 = $num_rows1['id_contestant'];
 														$name_judge = $num_rows1['name_judge'];
-														$production_mastery = $num_rows1['production_mastery'];
+														$production_mastery = $num_rows1['talent_portion_mastery'];
 														
 														if($name_judge == $judge)
 														{
-															$production_mastery_edit = $num_rows1['production_mastery_edit'];
-															$production_mastery_vote = $num_rows1['production_mastery_vote'];
+															$production_mastery_edit = $num_rows1['talent_portion_mastery_edit'];
+															$production_mastery_vote = $num_rows1['talent_portion_mastery_vote'];
 															if($production_mastery_vote == 0)
 															{
 													echo "
@@ -1209,7 +1299,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 
 															<div class='input-group mb-3'>
 
-															  <input type='number' min='1' max = '30' class='form-control' placeholder='Example Score: 30' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
+															  <input type='number' min='1' max = '40' class='form-control' placeholder='Example Score: 40' aria-label='Recipient's username' aria-describedby='button-addon2' name = 'score' required maxlength='3' pattern='[0-9]{1,}'>
 															  <input type = 'hidden' name ='judge' value='$judge'>
 															  <input type = 'hidden' name ='name_contestant' value='$full_name'>
 																  <div class='input-group-append'>
@@ -1255,9 +1345,12 @@ if(isset($_POST['submit_score_production_audience_impact']))
 														<td style='display:none'>$production_mastery</td>
 														<td style='display:none'>$judge</td>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$candidate_no</td>
+														<td style='display:none'>$sequence_no</td>
 														<td style='display:none'>$team</td>
 														<td style='display:none'>$production_mastery_edit</td>";
+
+														if($production_mastery_edit == 0)
+													{
 
 											echo "
 
@@ -1270,7 +1363,18 @@ if(isset($_POST['submit_score_production_audience_impact']))
 															</center>
 														</td>
 													";
-													
+													}
+													else
+													{
+											echo "
+														<td>
+															<center>
+																<span style = 'color:red;font-family:Calibri'>Your updated score has already been recorded for this contestant!</span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $production_mastery</text></span><br>
+															</center>
+														</td>
+													";
+													}
 
 												echo "
 													</tr>
@@ -1328,7 +1432,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 
 
 
-<!-- -----------------------------------    SELF INTRODUCTION        ----------------------------------------------->
+<!-- -----------------------------------    UNIQUENESS        ----------------------------------------------->
 
 
 						<div class="row">
@@ -1336,7 +1440,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and talent_portion_sequenceNo = 1 ORDER BY talent_portion_sequenceNo ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1348,6 +1452,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										$team = $num_rows['team'];
 										$full_name = $num_rows['full_name'];
 										$candidate_no = $num_rows['candidate_no'];
+										$sequence_no = $num_rows['talent_portion_sequenceNo'];
 										$picture = $num_rows['picture'];
 										$modal++;
 										if($gender == "Male")
@@ -1361,7 +1466,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 									
 										echo "
 										<div class='media-body'>
-										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='235px' alt='Generic placeholder image'>
+										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='320px' alt='Generic placeholder image'>
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
@@ -1369,26 +1474,26 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<text style='color:red'>
 														<b>
 															<text style='font-family: arial'># 
-																$candidate_no
+																$sequence_no
 															</text>
 														</b>
 													 - <b>$team</b></h5>
 													</text>
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
-													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> SELF INTRODUCTION (30pts) <text style='color:red'>*</text></b></p>";
+													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> UNIQUENESS (30pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender= 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender= 'Female' AND name_judge = '$judge' and id_contestant = 1");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
 														$id_contestant1 = $num_rows1['id_contestant'];
 														$name_judge = $num_rows1['name_judge'];
-														$production_self_introduction = $num_rows1['production_self_introduction'];
+														$production_self_introduction = $num_rows1['talent_portion_uniqueness'];
 														
 														if($name_judge == $judge)
 														{
-															$production_self_introduction_edit = $num_rows1['production_self_introduction_edit'];
-															$production_self_introduction_vote = $num_rows1['production_self_introduction_vote'];
+															$production_self_introduction_edit = $num_rows1['talent_portion_uniqueness_edit'];
+															$production_self_introduction_vote = $num_rows1['talent_portion_uniqueness_vote'];
 															if($production_self_introduction_vote == 0)
 															{
 													echo "
@@ -1444,11 +1549,12 @@ if(isset($_POST['submit_score_production_audience_impact']))
 														<td style='display:none'>$production_self_introduction</td>
 														<td style='display:none'>$judge</td>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$candidate_no</td>
+														<td style='display:none'>$sequence_no</td>
 														<td style='display:none'>$team</td>
 														<td style='display:none'>$production_self_introduction_edit</td>";
 
-
+														if($production_self_introduction_edit == 0)
+													{
 
 											echo "
 
@@ -1461,7 +1567,18 @@ if(isset($_POST['submit_score_production_audience_impact']))
 															</center>
 														</td>
 													";
-													
+													}
+													else
+													{
+											echo "
+														<td>
+															<center>
+																<span style = 'color:red;font-family:Calibri'>Your updated score has already been recorded for this contestant!</span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $production_self_introduction</text></span><br>
+															</center>
+														</td>
+													";
+													}
 
 												echo "
 													</tr>
@@ -1503,7 +1620,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 						
 							$link = mysqli_connect("localhost","root","","tabulation");
 					  		
-							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Male' and candidate_no = 1 ORDER BY candidate_no ASC,gender ASC");
+							$sql = mysqli_query($link,"SELECT *FROM contestant where gender = 'Female' and talent_portion_sequenceNo = 1 ORDER BY talent_portion_sequenceNo ASC,gender ASC");
 					  		$temp;
 							$num2 = 0;
 				 			$modal = 0;
@@ -1515,6 +1632,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										$team = $num_rows['team'];
 										$full_name = $num_rows['full_name'];
 										$candidate_no = $num_rows['candidate_no'];
+										$sequence_no = $num_rows['talent_portion_sequenceNo'];
 										$picture = $num_rows['picture'];
 										$modal++;
 										if($gender == "Male")
@@ -1528,7 +1646,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 									
 										echo "
 										<div class='media-body'>
-										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='235px' alt='Generic placeholder image'>
+										  <img class='align-self-start mr-3' src='img/candidates/$picture' height='320px' alt='Generic placeholder image'>
 										</div>
 											<div class='media col-md-12 my-4'>
 												<div class='media-body'>
@@ -1536,7 +1654,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<text style='color:red'>
 														<b>
 															<text style='font-family: arial'># 
-																$candidate_no
+																$sequence_no
 															</text>
 														</b>
 													 - <b>$team</b></h5>
@@ -1544,18 +1662,18 @@ if(isset($_POST['submit_score_production_audience_impact']))
 													<p><b style='font-family: Pristina Regular;font-size: 30px'>$status $full_name </b></p>
 													<p><b style='font-family: Arial Rounded MT;font-size: 16px'><text style='color:red'>*</text> AUDIENCE IMPACT (10pts) <text style='color:red'>*</text></b></p>";
 							
-													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Male' AND name_judge = '$judge' and id_contestant = 1");
+													$sql1 = mysqli_query($link,"SELECT *FROM score_card WHERE name_contestant = '$full_name' and gender = 'Female' AND name_judge = '$judge' and id_contestant = 1");
 													
 													for($b = 0 ; $b < $num_rows1 = mysqli_fetch_array($sql1) ; $b++ )
 													{
 														$id_contestant1 = $num_rows1['id_contestant'];
 														$name_judge = $num_rows1['name_judge'];
-														$production_audience_impact = $num_rows1['production_audience_impact'];
+														$production_audience_impact = $num_rows1['talent_portion_audience_impact'];
 														
 														if($name_judge == $judge)
 														{
-															$production_audience_impact_edit = $num_rows1['production_audience_impact_edit'];
-															$production_audience_impact_vote = $num_rows1['production_audience_impact_vote'];
+															$production_audience_impact_edit = $num_rows1['talent_portion_audience_impact_edit'];
+															$production_audience_impact_vote = $num_rows1['talent_portion_audience_impact_vote'];
 															if($production_audience_impact_vote == 0)
 															{
 													echo "
@@ -1611,11 +1729,12 @@ if(isset($_POST['submit_score_production_audience_impact']))
 														<td style='display:none'>$production_audience_impact</td>
 														<td style='display:none'>$judge</td>
 														<td style='display:none'>$full_name</td>
-														<td style='display:none'>$candidate_no</td>
+														<td style='display:none'>$sequence_no</td>
 														<td style='display:none'>$team</td>
 														<td style='display:none'>$production_audience_impact_edit</td>";
 
-
+														if($production_audience_impact_edit == 0)
+													{
 
 											echo "
 
@@ -1628,7 +1747,18 @@ if(isset($_POST['submit_score_production_audience_impact']))
 															</center>
 														</td>
 													";
-													
+													}
+													else
+													{
+											echo "
+														<td>
+															<center>
+																<span style = 'color:red;font-family:Calibri'>Your updated score has already been recorded for this contestant!</span><br>
+																<span class='editScore text-success' style='text-decoration:none;color: black;'><i class='fa fa-star' style='font-size:14px'></i> <text style='font-family:Century Gothic'>Score: $production_audience_impact</text></span><br>
+															</center>
+														</td>
+													";
+													}
 
 												echo "
 													</tr>
@@ -1733,7 +1863,6 @@ if(isset($_POST['submit_score_production_audience_impact']))
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="assets/js/material-dashboard.js?v=1.2.0"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
@@ -1791,7 +1920,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										<button class='close' type='button' data-dismiss='modal' aria-label='Close'></button>
 									</div>
 									<div class='modal-body'>
-										<h6>Poise and Bearing (30pts)</h6><p></p>
+										<h6>Stage Presents (20pts)</h6><p></p>
 										<p style="color:red;">Note: You can only update once.</p>
 										
 										  Contestant Number: <input type="text" id = "poiseandbearing_id_contestant" class="re"readonly disabled /><br>
@@ -1800,12 +1929,12 @@ if(isset($_POST['submit_score_production_audience_impact']))
 											<input type="text" id="poiseandbearing_production_PoiseandBearing" name="production_PoiseandBearing" class="re"readonly hidden />
 											Submitted Score: <input type="number" id = "poiseandbearing_initial_score" class="re"readonly disabled/><br>
 											<input type="text" id = "poiseandbearing_judge" name="edit_judge" class="re"readonly hidden /><br>
-											New Score: <input type="number" min="1" max="30" name="edit_scoreInput" class="red" required aria-describedby='button-addon3'/>
+											New Score: <input type="number" min="1" max="20" name="edit_scoreInput" class="red" required aria-describedby='button-addon3'/>
 									</div>
 									<div class='modal-footer'>
 
 																		<button class='btn btn-secondary' type='button' data-dismiss='modal'>Cancel</button>
-																		<button class = 'btn btn-danger' type='submit' name ='submit_edit_score_poiseandbearing' id='button-addon3'>Update</button>
+																		<button class = 'btn btn-danger' type='submit' name ='submit_edit_score_stagePresent' id='button-addon3'>Update</button>
 										
 									</div>
 								</div>
@@ -1849,7 +1978,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										<button class='close' type='button' data-dismiss='modal' aria-label='Close'></button>
 									</div>
 									<div class='modal-body'>
-										<h6>Mastery (30pts)</h6><p></p>
+										<h6>Mastery (40pts)</h6><p></p>
 										<p style="color:red;">Note: You can only update once.</p>
 										
 										  Contestant Number: <input type="text" id = "mastery_id_contestant" class="re"readonly disabled /><br>
@@ -1858,7 +1987,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 											<input type="text" id="mastery_production" name="production_mastery" class="re"readonly hidden />
 											Submitted Score: <input type="number" id = "mastery_initial_score" class="re"readonly disabled/><br>
 											<input type="text" id = "mastery_judge" name="edit_judge" class="re"readonly hidden /><br>
-											New Score: <input type="number" min="1" max="30" name="edit_scoreInput" class="red" required aria-describedby='button-addon3'/>
+											New Score: <input type="number" min="1" max="40" name="edit_scoreInput" class="red" required aria-describedby='button-addon3'/>
 									</div>
 									<div class='modal-footer'>
 
@@ -1912,7 +2041,7 @@ if(isset($_POST['submit_score_production_audience_impact']))
 										<button class='close' type='button' data-dismiss='modal' aria-label='Close'></button>
 									</div>
 									<div class='modal-body'>
-										<h6>Self Introduction (30pts)</h6><p></p>
+										<h6>Uniqueness (30pts)</h6><p></p>
 										<p style="color:red;">Note: You can only update once.</p>
 										
 										  Contestant Number: <input type="text" id = "self_introduction_id_contestant" class="re"readonly disabled /><br>

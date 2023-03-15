@@ -92,7 +92,7 @@ if(empty($_SESSION['login_judge']))
     <main role="main">
       <div class="album py-5 bg-light">
         <div class="container">
-          <div class="row">
+<!--         <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <center><div class="card-header align-items-center" style="background-color:#62B866;width:97%;margin-top:-18px;border-radius: 4px;">
@@ -213,6 +213,7 @@ if(empty($_SESSION['login_judge']))
                         </div> 
                     </div>
                     <br><br>
+-->
 				<div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -767,6 +768,7 @@ if(empty($_SESSION['login_judge']))
                         </div>
                             
                     </div>
+                -->
 
           
 			
